@@ -1,0 +1,399 @@
+:root {
+    --verde: #2d6a4f;
+    --verde-oscuro: #1f4d38;
+    --verde-claro: #e4eee8;
+    --borde: #e3e8e5;
+    --texto: #1b2b22;
+    --gris: #6b7a72;
+}
+
+.cf-contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px 48px;
+    color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.cf-etiqueta {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--verde);
+}
+
+/* ---------- Banner ---------- */
+.cf-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 48px;
+    padding: 48px;
+    background: var(--verde-claro);
+    border-radius: 16px;
+}
+
+.cf-hero-texto { max-width: 520px; }
+.cf-hero h1 { margin: 0 0 12px; font-size: 38px; line-height: 1.1; }
+.cf-hero p { margin: 0 0 24px; color: var(--gris); font-size: 14px; }
+
+.cf-boton {
+    display: inline-block;
+    padding: 10px 18px;
+    background: var(--verde);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+}
+.cf-boton:hover { background: var(--verde-oscuro); }
+
+.cf-hero-frascos {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+}
+
+/* ---------- Frascos dibujados con CSS ---------- */
+.cf-frasco {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 130px;
+    padding: 14px 6px 8px;
+    background: #f4f6f5;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    font-size: 9px;
+    text-align: center;
+    color: #33443b;
+}
+.cf-frasco::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 34px;
+    height: 12px;
+    background: #1f3d2e;
+    border-radius: 4px 4px 0 0;
+    transform: translateX(-50%);
+}
+.cf-frasco strong { margin: 4px 0; font-size: 11px; line-height: 1.2; }
+.cf-frasco--azul { height: 155px; background: #cfe0ee; }
+.cf-frasco--durazno { height: 115px; background: #f6dfcf; }
+.cf-frasco--mini { width: 54px; height: 90px; font-size: 8px; }
+
+/* ---------- Productos destacados ---------- */
+.cf-destacados-cabecera {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.cf-destacados-cabecera h2 { margin: 0; font-size: 22px; }
+.cf-destacados-cabecera a { color: var(--texto); font-size: 13px; text-decoration: none; }
+
+.cf-grilla {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.cf-tarjeta {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+}
+
+.cf-tarjeta-imagen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    margin-bottom: 14px;
+    background: #f3f6f4;
+    border-radius: 8px;
+}
+
+.cf-marca {
+    margin: 0 0 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--verde);
+}
+.cf-nombre { margin: 0 0 6px; font-size: 15px; }
+.cf-puntaje { margin: 0 0 16px; font-size: 11px; color: var(--gris); }
+
+.cf-tarjeta-pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+.cf-precio { font-size: 17px; font-weight: 700; }
+.cf-boton-detalle {
+    padding: 6px 10px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--texto);
+    text-decoration: none;
+}
+.cf-boton-detalle:hover { background: var(--verde-claro); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .cf-grilla { grid-template-columns: repeat(2, 1fr); }
+    .cf-hero { flex-direction: column; align-items: flex-start; padding: 28px; }
+}
+
+/* ---------- Catálogo ---------- */
+.cf-migas { margin: 0 0 8px; font-size: 11px; color: var(--gris); }
+.cf-migas a { color: var(--gris); text-decoration: none; }
+.cf-titulo-pagina { margin: 0 0 24px; font-size: 32px; }
+
+.cf-catalogo {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.cf-filtros {
+    padding: 20px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+}
+.cf-filtros h2 { margin: 0 0 12px; font-size: 15px; }
+.cf-filtro-grupo { margin: 14px 0 4px; font-size: 12px; font-weight: 600; }
+.cf-filtro-link {
+    display: block;
+    padding: 5px 0 5px 10px;
+    font-size: 12px;
+    color: var(--texto);
+    text-decoration: none;
+}
+.cf-filtro-link:hover { color: var(--verde); }
+
+.cf-filtro-etiqueta { display: block; margin: 16px 0 6px; font-size: 11px; font-weight: 700; }
+.cf-select {
+    width: 100%;
+    padding: 8px 10px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--texto);
+}
+
+.cf-catalogo-barra {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.cf-cantidad { font-size: 12px; color: var(--gris); }
+.cf-orden { width: 220px; }
+.cf-orden .cf-filtro-etiqueta { margin-top: 0; }
+
+@media (max-width: 900px) {
+    .cf-catalogo { grid-template-columns: 1fr; }
+}
+/* ---------- Detalle de producto ---------- */
+.cf-detalle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin: 24px 0 48px;
+}
+.cf-detalle-imagen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+}
+.cf-frasco--grande {
+    width: 110px;
+    height: 220px;
+    padding-top: 22px;
+    font-size: 11px;
+}
+.cf-frasco--grande::before { top: -14px; width: 48px; height: 16px; }
+.cf-frasco--grande strong { font-size: 17px; }
+
+.cf-detalle-info h1 { margin: 4px 0 8px; font-size: 32px; }
+.cf-detalle-puntaje { margin: 0 0 18px; font-size: 12px; color: var(--gris); }
+.cf-detalle-precio { margin: 0 0 12px; font-size: 22px; font-weight: 700; }
+.cf-chip {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 3px 8px;
+    background: var(--verde-claro);
+    border-radius: 4px;
+    font-size: 10px;
+    color: var(--verde);
+}
+.cf-detalle-texto { max-width: 520px; margin: 0 0 16px; font-size: 13px; line-height: 1.5; color: var(--gris); }
+.cf-detalle-datos { margin: 0 0 20px; font-size: 12px; color: var(--gris); }
+
+.cf-boton-claro {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--texto);
+    text-decoration: none;
+    cursor: pointer;
+}
+.cf-boton-claro:hover { background: var(--verde-claro); }
+button.cf-boton { border: 0; font-family: inherit; cursor: pointer; }
+
+/* ---------- Opiniones y formulario ---------- */
+.cf-seccion-titulo { margin: 0 0 16px; font-size: 22px; }
+.cf-panel {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+}
+.cf-panel-titulo { margin: 0 0 16px; font-size: 15px; }
+.cf-sin-opiniones { margin: 0; font-size: 12px; color: var(--gris); }
+
+.cf-opinion { padding: 12px 0; border-bottom: 1px solid var(--borde); }
+.cf-opinion:first-child { padding-top: 0; }
+.cf-opinion:last-child { padding-bottom: 0; border-bottom: 0; }
+.cf-opinion-cabecera { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; }
+.cf-opinion-estrellas { color: #a8672a; letter-spacing: 1px; }
+.cf-opinion p { margin: 6px 0 0; font-size: 12px; }
+
+.cf-form-fila { display: grid; grid-template-columns: 2fr 1.2fr; gap: 16px; }
+.cf-campo { margin-bottom: 16px; }
+.cf-campo label { display: block; margin-bottom: 6px; font-size: 11px; font-weight: 700; }
+.cf-campo input,
+.cf-campo select,
+.cf-campo textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--texto);
+}
+.cf-campo textarea { min-height: 90px; resize: vertical; }
+.cf-form-acciones { display: flex; align-items: center; justify-content: space-between; }
+
+@media (max-width: 900px) {
+    .cf-detalle { grid-template-columns: 1fr; gap: 24px; }
+    .cf-form-fila { grid-template-columns: 1fr; }
+}
+/* ---------- Contacto ---------- */
+.cf-contacto {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 32px;
+    align-items: start;
+}
+.cf-contacto-texto { margin: 0 0 20px; font-size: 13px; color: var(--gris); }
+.cf-panel-texto { margin: 0; font-size: 12px; line-height: 1.5; }
+.cf-form-fila--iguales { grid-template-columns: 1fr 1fr; }
+
+/* ---------- Catálogo: filtro activo y estado vacío ---------- */
+.cf-filtro-link--activo {
+    background: var(--verde-claro);
+    border-radius: 6px;
+    font-weight: 600;
+    color: var(--verde);
+}
+.cf-vacio {
+    padding: 48px 20px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+}
+.cf-vacio h2 { margin: 0 0 8px; font-size: 22px; }
+.cf-vacio p { margin: 0 0 16px; font-size: 13px; color: var(--gris); }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+    .cf-hero-frascos { align-self: center; }
+    .cf-contacto { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+    .cf-contenedor { padding: 16px 14px 32px; }
+    .cf-titulo-pagina { font-size: 26px; }
+
+    .cf-hero { margin-bottom: 32px; padding: 24px 20px; }
+    .cf-hero h1 { font-size: 28px; }
+
+    .cf-grilla { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cf-tarjeta { padding: 10px; }
+    .cf-tarjeta-imagen { height: 120px; }
+    .cf-tarjeta-pie { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+    .cf-filtro-lista { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; }
+    .cf-orden { width: 150px; }
+
+    .cf-detalle-imagen { min-height: 240px; }
+    .cf-detalle-info h1 { font-size: 26px; }
+    .cf-form-fila--iguales { grid-template-columns: 1fr; }
+}
+/* ---------- Registro / acceso ---------- */
+.cf-auth {
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px;
+    background: #f6f8f7;
+    color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.cf-auth-tarjeta {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 520px;
+    padding: 32px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+}
+.cf-auth-titulo { margin: 0 0 8px; font-size: 34px; line-height: 1.1; }
+.cf-auth-texto { margin: 0 0 24px; font-size: 13px; color: var(--gris); }
+.cf-auth .cf-campo input { padding: 12px; }
+
+.cf-boton--bloque {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+}
+.cf-auth-pie { margin: 14px 0 0; font-size: 12px; text-align: center; }
+.cf-auth-pie a { color: var(--texto); text-decoration: none; }
+.cf-auth-pie a:hover { color: var(--verde); }
+
+@media (max-width: 560px) {
+    .cf-auth { padding: 24px 14px; }
+    .cf-auth-tarjeta { padding: 24px 20px; }
+}

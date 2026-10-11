@@ -1,4 +1,8 @@
 <?php
+$css = '
+<link rel="stylesheet" href="../../assets/css/public.css">
+<link rel="stylesheet" href="../../assets/css/header-footer.css">
+';
 // Esta página está en la raíz, así que los archivos (CSS, etc.) se buscan desde acá
 $base = '';
 

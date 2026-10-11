@@ -1,0 +1,436 @@
+/* Formularios de alta y edición. */
+
+.admin-main.admin-form-page .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+    color: #6a7c72;
+    font-size: 13px;
+}
+
+.admin-main.admin-form-page .breadcrumb a {
+    color: #096b4d;
+    text-decoration: none;
+}
+
+.admin-main.admin-form-page .breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.admin-main.admin-form-page .page-heading {
+    margin-bottom: 20px;
+}
+
+.admin-main.admin-form-page .page-heading h1 {
+    margin: 0 0 10px;
+    color: #173d3f;
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.admin-main.admin-form-page .muted {
+    margin: 0;
+    color: #6a7c72;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.admin-main.admin-form-page .admin-form {
+    width: 100%;
+    padding: 30px 18px 18px;
+    box-sizing: border-box;
+    border: 1px solid #dce6e2;
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+
+.admin-form .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 18px;
+    align-items: start;
+}
+
+.admin-form .form-grid>div {
+    min-width: 0;
+}
+
+.admin-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #173d3f;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.admin-form input:not([type="hidden"]):not([type="checkbox"]),
+.admin-form select,
+.admin-form textarea {
+    display: block;
+    width: 100%;
+    min-height: 45px;
+    padding: 11px 14px;
+    box-sizing: border-box;
+    border: 1px solid #dce6e2;
+    border-radius: 7px;
+    background-color: #ffffff;
+    color: #173d3f;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.admin-form select,
+.admin-form textarea {
+    cursor: pointer;
+}
+
+.admin-form input::placeholder,
+.admin-form textarea::placeholder {
+    color: #89998f;
+}
+
+.admin-form input:not([type="checkbox"]):focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+    border-color: #096b4d;
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(9 107 77 / 15%);
+}
+
+.admin-form input:disabled,
+.admin-form select:disabled {
+    background-color: #f1f5f2;
+    color: #76867c;
+    cursor: not-allowed;
+}
+
+.admin-form #password-help {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.admin-form .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.admin-form .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease;
+}
+
+.admin-form .button.outline {
+    border-color: #dce6e2;
+    background-color: #ffffff;
+    color: #173d3f;
+}
+
+.admin-form .button.outline:hover {
+    border-color: #096b4d;
+    background-color: #edf6f1;
+}
+
+.admin-form .button.primary {
+    border-color: #096b4d;
+    background-color: #096b4d;
+    color: #ffffff;
+}
+
+.admin-form .button.primary:hover {
+    border-color: #07543c;
+    background-color: #07543c;
+}
+
+.admin-form .button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-form .form-feedback:empty {
+    display: none;
+}
+
+.admin-form .alert {
+    margin-top: 20px;
+    padding: 14px 18px;
+    border: 1px solid #bdd6c5;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.admin-form .alert-success {
+    background-color: #eaf4ed;
+    color: #267447;
+}
+
+.admin-form .alert-error {
+    border-color: #ecc6c6;
+    background-color: #fff0f0;
+    color: #a23535;
+}
+
+.admin-main.admin-form-page .breadcrumb a:focus-visible,
+.admin-form .button:focus-visible {
+    outline: 3px solid #096b4d;
+    outline-offset: 4px;
+}
+
+.admin-form [hidden] {
+    display: none !important;
+}
+
+
+
+/* Distribución específica por entidad; compartida por alta y edición. */
+.admin-form .span-all {
+    grid-column: 1 / -1;
+}
+
+.admin-form--categorias .form-grid>.span-all,
+.admin-form--marcas .form-grid>.span-all,
+.admin-form--perfiles .form-grid>div.span-all {
+    grid-column: auto;
+}
+
+.admin-form--productos .form-grid {
+    grid-template-areas: "nombre precio" "descripcion descripcion" "categoria subcategoria" "marca modelo" "imagen destacado" "preview preview";
+}
+
+.admin-form--usuarios .form-grid {
+    grid-template-areas: "nombre email" "password perfil";
+}
+
+.admin-form--productos .field-nombre,
+.admin-form--usuarios .field-nombre {
+    grid-area: nombre;
+}
+
+.admin-form--productos .field-precio {
+    grid-area: precio;
+}
+
+.admin-form--productos .field-descripcion {
+    grid-area: descripcion;
+}
+
+.admin-form--productos .field-categoria {
+    grid-area: categoria;
+}
+
+.admin-form--productos .field-subcategoria {
+    grid-area: subcategoria;
+}
+
+.admin-form--productos .field-marca {
+    grid-area: marca;
+}
+
+.admin-form--productos .field-modelo {
+    grid-area: modelo;
+}
+
+.admin-form--productos .field-imagen {
+    grid-area: imagen;
+}
+
+.admin-form--productos .image-preview {
+    grid-area: preview;
+}
+
+.admin-form--productos .check {
+    grid-area: destacado;
+    padding-top: 30px;
+}
+
+.admin-form--usuarios .field-email {
+    grid-area: email;
+}
+
+.admin-form--usuarios .field-password {
+    grid-area: password;
+}
+
+.admin-form--usuarios .field-perfil {
+    grid-area: perfil;
+}
+
+/* Imagen y texto de ayuda. */
+.admin-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.admin-form small.muted {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.admin-form input[type="file"] {
+    padding: 7px;
+    background-color: #fafcfb;
+}
+
+.admin-form input[type="file"]::file-selector-button {
+    margin-right: 10px;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #eaf4ed;
+    color: #096b4d;
+    font: inherit;
+    cursor: pointer;
+}
+
+.admin-form input[type="file"]::file-selector-button:hover {
+    background-color: #dceee2;
+}
+
+.admin-form .image-preview {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border: 1px dashed #c6d8cc;
+    border-radius: 8px;
+    background-color: #f8fbf9;
+}
+
+.admin-form .image-preview img {
+    display: block;
+    width: 60px;
+    height: 75px;
+    object-fit: contain;
+}
+
+/* Permisos y casillas. */
+.admin-form fieldset {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.admin-form legend {
+    margin-bottom: 8px;
+    padding: 0;
+    color: #173d3f;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.admin-form fieldset .muted.small {
+    margin: 0 0 12px;
+    font-size: 12px;
+}
+
+.admin-form .permissions-grid {
+    display: grid;
+    gap: 6px;
+}
+
+.admin-form label.check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 28px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.admin-form .check input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #096b4d;
+    cursor: pointer;
+}
+
+.admin-form input[type="checkbox"]:focus-visible {
+    outline: 3px solid #096b4d;
+    outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+    .admin-main.admin-form-page .admin-form {
+        padding: 24px 18px;
+    }
+
+    .admin-form .form-grid {
+        grid-template-areas: none;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .admin-form input:not([type="hidden"]):not([type="checkbox"]),
+    .admin-form textarea,
+    .admin-form select {
+        font-size: 16px;
+    }
+
+    .admin-form .form-grid>div,
+    .admin-form .form-grid>label.check {
+        grid-area: auto;
+        grid-column: 1 / -1;
+    }
+
+    .admin-form--productos .check {
+        padding-top: 0;
+    }
+
+    .admin-form .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-form .form-actions .button {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-form input,
+    .admin-form textarea,
+    .admin-form select,
+    .admin-form .button {
+        transition: none;
+    }
+}
+/* Ancho legible y permisos en dos columnas en escritorio. */
+.admin-main.admin-form-page { max-width: 1480px; }
+.admin-form--perfiles .permissions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 600px) {
+    .admin-form--perfiles .permissions-grid { grid-template-columns: 1fr; }
+}

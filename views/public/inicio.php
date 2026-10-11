@@ -1,5 +1,8 @@
 <?php
-$css = '<link rel="stylesheet" href="../../assets/css/public.css">';
+
+$css = '<link rel="stylesheet" href="../../assets/css/public.css">
+        <link rel="stylesheet" href="../../assets/css/header-footer.css">';
+
 require_once __DIR__ . '/../layouts/head.php';
 
 $destacados = [

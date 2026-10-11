@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../layouts/head.php';
+require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 <link rel="stylesheet" href="../../assets/css/alta-categorias.css">
@@ -41,3 +42,5 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </div>
     </form>
 </main>
+<?php
+require_once __DIR__ . '/../layouts/footer.php'; 

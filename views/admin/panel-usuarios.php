@@ -5,9 +5,9 @@ require_once __DIR__ . '/../partials/sidebar.php';
 
 <link rel="stylesheet" href="../../assets/css/panel-usuarios.css">
 
-<main id="contenido" class="admin-main">
+<main id="contenido" class="admin-main admin-panel-usuarios">
     <nav class="breadcrumb" aria-label="Ubicación">
-        <a href="/views/admin/panel-inicio.php">Panel</a>
+        <a href="panel-inicio.php">Panel</a>
         <span>/</span>
         <span>Usuarios</span>
     </nav>

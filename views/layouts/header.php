@@ -1,3 +1,4 @@
+<body>
 <header class="site-header">
     <div class="site-header-inner">
         <a class="site-brand" href="inicio.php">

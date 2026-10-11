@@ -7,9 +7,10 @@ $css = '
 $base = '';
 
 require_once __DIR__ . '/views/layouts/head.php';
+require_once __DIR__ . '/views/layouts/header.php';
+
 ?>
-<body>
-<?php require_once __DIR__ . '/views/layouts/header.php'; ?>
+
 
 <main class="cf-auth">
     <div class="cf-auth-tarjeta">

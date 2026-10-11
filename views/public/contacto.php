@@ -1,15 +1,15 @@
 <?php
 
-$css = '<link rel="stylesheet" href="assets/css/public.css">
-        <link rel="stylesheet" href="assets/css/header-footer.css">';
+$css = '<link rel="stylesheet" href="../../assets/css/public.css">
+        <link rel="stylesheet" href="../../assets/css/header-footer.css">';
 
 
 $areas = ['Atención al cliente', 'Productos', 'Recursos humanos'];
 
-require_once __DIR__ . '/views/layouts/head.php';
+require_once __DIR__ . '/../layouts/head.php';
 ?>
 <body>
-<?php require_once __DIR__ . '/views/layouts/header.php'; ?>
+<?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <main class="cf-contenedor">
 
@@ -71,6 +71,6 @@ require_once __DIR__ . '/views/layouts/head.php';
     </div>
 </main>
 
-<?php require_once __DIR__ . '/views/layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
 </body>
 </html>

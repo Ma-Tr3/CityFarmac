@@ -1,7 +1,7 @@
 <?php
 
-$css = '<link rel="stylesheet" href="../../assets/css/public.css">
-        <link rel="stylesheet" href="../../assets/css/header-footer.css">';
+$css = '<link rel="stylesheet" href="assets/css/public.css">
+        <link rel="stylesheet" href="assets/css/header-footer.css">';
 
 
 $areas = ['Atención al cliente', 'Productos', 'Recursos humanos'];

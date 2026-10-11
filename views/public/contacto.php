@@ -1,4 +1,6 @@
 <?php
+$css = '<link rel="stylesheet" href="../../assets/css/public.css">';
+
 $areas = ['Atención al cliente', 'Productos', 'Recursos humanos'];
 
 require_once __DIR__ . '/../layouts/head.php';

@@ -1,4 +1,6 @@
 <?php
+$css = '<link rel="stylesheet" href="../../assets/css/public.css">';
+
 function estrellas(int $n): string
 {
     return str_repeat('★', $n) . str_repeat('☆', 5 - $n);

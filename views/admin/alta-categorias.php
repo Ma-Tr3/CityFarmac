@@ -4,11 +4,11 @@ require_once __DIR__ . '/../layouts/head.php';
 require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
-<main id="contenido" class="admin-main">
+<main id="contenido" class="admin-main admin-form-page">
     <nav class="breadcrumb" aria-label="Ubicación">
-        <a href="/views/admin/panel-inicio.php">Panel</a>
+        <a href="panel-inicio.php">Panel</a>
         <span>/</span>
-        <a href="/views/admin/panel-categorias.php">Categorías</a>
+        <a href="panel-categorias.php">Categorías</a>
         <span>/</span>
         <span>Nuevo registro</span>
     </nav>
@@ -18,9 +18,9 @@ require_once __DIR__ . '/../partials/sidebar.php';
             Completá los campos. Los datos se usan solamente como demostración.
         </p>
     </div>
-    <form class="surface admin-form" data-demo-form="admin">
+    <form class="surface admin-form admin-form--categorias" data-demo-form="admin">
         <div class="form-grid">
-            <div class="span-all">
+            <div class="field-nombre">
                 <label for="nombre">Nombre</label>
                 <input id="nombre" name="nombre" required maxlength="120" value="" />
             </div>
@@ -37,7 +37,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </div>
         <div class="form-feedback" aria-live="polite"></div>
         <div class="form-actions">
-            <a class="button outline" href="/views/admin/panel-categorias.php"> Cancelar </a>
+            <a class="button outline" href="panel-categorias.php"> Cancelar </a>
             <button class="button primary" type="submit">Guardar categoría</button>
         </div>
     </form>

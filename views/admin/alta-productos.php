@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 $css = '<link rel="stylesheet" href="../../assets/css/admin-formularios.css">';
@@ -7,11 +8,11 @@ require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 
-<main id="contenido" class="admin-main">
+<main id="contenido" class="admin-main admin-form-page">
     <nav class="breadcrumb" aria-label="Ubicación">
-        <a href="/views/admin/panel-inicio.php">Panel</a>
+        <a href="panel-inicio.php">Panel</a>
         <span>/</span>
-        <a href="/views/admin/panel-productos.php">Productos</a>
+        <a href="panel-productos.php">Productos</a>
         <span>/</span>
         <span>Nuevo registro</span>
     </nav>
@@ -21,13 +22,13 @@ require_once __DIR__ . '/../partials/sidebar.php';
             Completá los campos. Los datos se usan solamente como demostración.
         </p>
     </div>
-    <form class="surface admin-form" data-demo-form="admin">
+    <form class="surface admin-form admin-form--productos" data-demo-form="admin">
         <div class="form-grid">
-            <div class="span-all">
+            <div class="field-nombre">
                 <label for="nombre">Nombre</label>
                 <input id="nombre" name="nombre" required maxlength="120" value="" />
             </div>
-            <div class="span-all">
+            <div class="field-descripcion">
                 <label for="descripcion">Descripción</label>
                 <textarea
                     id="descripcion"
@@ -35,7 +36,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                     required
                     maxlength="2000"></textarea>
             </div>
-            <div>
+            <div class="field-precio">
                 <label for="precio">Precio ($)</label>
                 <input
                     id="precio"
@@ -47,7 +48,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                     step="0.01"
                     value="" />
             </div>
-            <div>
+            <div class="field-categoria">
                 <label for="categoria">Categoría</label>
                 <select id="categoria" name="categoria" required data-form-category>
                     <option value="">Seleccioná una categoría</option>
@@ -56,7 +57,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                     <option value="3">Perfumería</option>
                 </select>
             </div>
-            <div>
+            <div class="field-subcategoria">
                 <label for="subcategoria">Subcategoría</label>
                 <select
                     id="subcategoria"
@@ -71,7 +72,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                     <option value="31" data-parent="3">Fragancias</option>
                 </select>
             </div>
-            <div>
+            <div class="field-marca">
                 <label for="marca">Marca</label>
                 <select id="marca" name="marca" required>
                     <option value="">Seleccioná una marca</option>
@@ -81,28 +82,28 @@ require_once __DIR__ . '/../partials/sidebar.php';
                     <option>Aura</option>
                 </select>
             </div>
-            <div>
+            <div class="field-modelo">
                 <label for="modelo">Modelo</label>
                 <input id="modelo" name="modelo" required maxlength="100" value="" />
             </div>
-            <div>
+            <div class="field-imagen">
                 <label for="imagen">Imagen del producto</label>
                 <input
                     id="imagen"
                     name="imagen"
                     type="file"
-                    accept="image/png,image/jpeg,image/webp"
+                    accept="image/png,image/jpeg,image/webp,image/svg+xml"
                     required
                     data-image-input
                     aria-describedby="image-help" />
                 <small id="image-help" class="muted">
-                    JPG, PNG o WebP. Seleccioná una imagen para previsualizarla.
+                    JPG, PNG, WebP o SVG. Seleccioná una imagen para previsualizarla.
                 </small>
             </div>
             <div class="span-all image-preview">
                 <img
                     data-image-preview
-                    src="/assets/img/products/solar.svg"
+                    src="../../assets/img/products/solar.svg"
                     alt="Vista previa del producto"
                     width="90"
                     height="110" />
@@ -114,10 +115,10 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </div>
         <div class="form-feedback" aria-live="polite"></div>
         <div class="form-actions">
-            <a class="button outline" href="./views/admin/panel-productos.php"> Cancelar </a>
+            <a class="button outline" href="panel-productos.php"> Cancelar </a>
             <button class="button primary" type="submit">Guardar producto</button>
         </div>
     </form>
 </main>
 <?php
-require_once __DIR__ . '/../layouts/footer.php'; 
+require_once __DIR__ . '/../layouts/footer.php';

@@ -1,5 +1,7 @@
 <?php
+declare(strict_types=1);
 require_once __DIR__ . '/../layouts/head.php';
+require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 <main id="contenido" class="admin-main">
@@ -49,3 +51,5 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </article>
     </div>
 </main>
+<?php
+require_once __DIR__ . '/../layouts/footer.php'; 

@@ -1,15 +1,33 @@
 <?php
+$datosFormulario = require __DIR__ . '/../../data/admin.php';
+$idFormulario = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$registroFormulario = null;
+foreach ($datosFormulario['usuarios'] as $itemFormulario) {
+    if ($itemFormulario['id'] === $idFormulario) {
+        $registroFormulario = $itemFormulario;
+        break;
+    }
+}
+if ($registroFormulario === null) {
+    http_response_code(404);
+    echo 'Registro no encontrado. <a href="panel-usuarios.php">Volver al listado</a>';
+    exit;
+}
+function escaparFormulario($valor): string {
+    return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
+}
+
 $css = '<link rel="stylesheet" href="../../assets/css/admin-formularios.css">';
 require_once __DIR__ . '/../layouts/head.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 
 ?>
 
-<main id="contenido" class="admin-main">
+<main id="contenido" class="admin-main admin-form-page">
     <nav class="breadcrumb" aria-label="Ubicación">
-        <a href="/views/admin/panel-inicio.php">Panel</a>
+        <a href="panel-inicio.php">Panel</a>
         <span>/</span>
-        <a href="/views/admin/panel-usuarios.php">Usuarios</a>
+        <a href="panel-usuarios.php">Usuarios</a>
         <span>/</span>
         <span>Modificar</span>
     </nav>
@@ -19,18 +37,18 @@ require_once __DIR__ . '/../partials/sidebar.php';
             Completá los campos. Los datos se usan solamente como demostración.
         </p>
     </div>
-    <form class="surface admin-form" data-demo-form="admin">
+    <form class="surface admin-form admin-form--usuarios" data-demo-form="admin">
         <div class="form-grid">
-            <div class="span-all">
+            <div class="field-nombre">
                 <label for="nombre">Nombre</label>
                 <input
                     id="nombre"
                     name="nombre"
                     required
                     maxlength="120"
-                    value="Marcelo Tremari" />
+                    value="<?= escaparFormulario($registroFormulario['nombre']) ?>" />
             </div>
-            <div>
+            <div class="field-email">
                 <label for="email">Email</label>
                 <input
                     id="email"
@@ -39,18 +57,18 @@ require_once __DIR__ . '/../partials/sidebar.php';
                     required
                     maxlength="150"
                     autocomplete="off"
-                    value="marcelo@ejemplo.com" />
+                    value="<?= escaparFormulario($registroFormulario['email']) ?>" />
             </div>
-            <div>
+            <div class="field-perfil">
                 <label for="perfil">Perfil</label>
                 <select id="perfil" name="perfil" required>
                     <option value="">Seleccioná un perfil</option>
-                    <option selected>Administrador</option>
-                    <option>Editor</option>
-                    <option>Moderador</option>
+                    <option <?= (string) ($registroFormulario['perfil'] ?? '') === 'Administrador' ? 'selected' : '' ?>>Administrador</option>
+                    <option <?= (string) ($registroFormulario['perfil'] ?? '') === 'Editor' ? 'selected' : '' ?>>Editor</option>
+                    <option <?= (string) ($registroFormulario['perfil'] ?? '') === 'Moderador' ? 'selected' : '' ?>>Moderador</option>
                 </select>
             </div>
-            <div class="span-all">
+            <div class="field-password">
                 <label for="password">Contraseña (opcional)</label>
                 <input
                     id="password"
@@ -67,8 +85,9 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </div>
         <div class="form-feedback" aria-live="polite"></div>
         <div class="form-actions">
-            <a class="button outline" href="/views/admin/panel-usuarios.php"> Cancelar </a>
+            <a class="button outline" href="panel-usuarios.php"> Cancelar </a>
             <button class="button primary" type="submit">Guardar usuario</button>
         </div>
     </form>
 </main>
+<?php require_once __DIR__ . "/../layouts/footer.php"; ?>

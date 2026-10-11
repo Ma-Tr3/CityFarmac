@@ -15,7 +15,7 @@ $filtro = filter_input(INPUT_GET, 'producto', FILTER_VALIDATE_INT);
 if ($filtro) {
     $datos['comentarios'] = array_values(array_filter(
         $datos['comentarios'],
-        fn ($registro) => ($registro['producto_id'] ?? null) === $filtro
+        fn($registro) => ($registro['producto_id'] ?? null) === $filtro
     ));
 }
 
@@ -26,7 +26,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
 
 <main id="contenido" class="admin-main">
     <nav class="breadcrumb" aria-label="Ubicación">
-        <a href="/CityFarmac/views/admin/panel-inicio.php">Panel</a>
+        <a href="panel-inicio.php">Panel</a>
         <span>/</span>
         <span>Comentarios</span>
     </nav>
@@ -68,17 +68,22 @@ require_once __DIR__ . '/../partials/sidebar.php';
             </thead>
             <tbody>
                 <?php foreach ($datos['comentarios'] as $registro): ?>
-                <tr data-record data-state="<?= escapar($registro['estado']) ?>">
-                    <td class="comment-cell"><?= escapar($registro['comentario']) ?><small class="muted"><?= escapar($registro['email']) ?></small></td>
-                    <td class="nowrap"><span class="rating" aria-label="<?= escapar($registro['ranking']) ?> de 5"><?= str_repeat('★', $registro['ranking']) . str_repeat('☆', 5 - $registro['ranking']) ?></span></td>
-                    <td class="nowrap"><?= escapar($registro['fecha']) ?></td>
-                    <td><?= escapar($registro['producto']) ?></td>
-                    <td><span class="badge <?= $registro['estado'] ? 'state-active' : 'state-inactive' ?>" data-state-badge><?= $registro['estado'] ? 'Activo' : 'Inactivo' ?></span></td>
-                    <td><div class="row-actions">
-                            <button type="button" class="text-button" data-toggle-state data-comments="1"><?= $registro['estado'] ? 'Desaprobar' : 'Aprobar' ?></button></div></td>
-                </tr>
+                    <tr data-record data-state="<?= escapar($registro['estado']) ?>">
+                        <td class="comment-cell"><?= escapar($registro['comentario']) ?><small class="muted"><?= escapar($registro['email']) ?></small></td>
+                        <td class="nowrap"><span class="rating" aria-label="<?= escapar($registro['ranking']) ?> de 5"><?= str_repeat('★', $registro['ranking']) . str_repeat('☆', 5 - $registro['ranking']) ?></span></td>
+                        <td class="nowrap"><?= escapar($registro['fecha']) ?></td>
+                        <td><?= escapar($registro['producto']) ?></td>
+                        <td><span class="badge <?= $registro['estado'] ? 'state-active' : 'state-inactive' ?>" data-state-badge><?= $registro['estado'] ? 'Activo' : 'Inactivo' ?></span></td>
+                        <td>
+                            <div class="row-actions">
+                                <button type="button" class="text-button" data-toggle-state data-comments="1"><?= $registro['estado'] ? 'Desaprobar' : 'Aprobar' ?></button>
+                            </div>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
-                <tr data-empty-row <?= count($datos['comentarios']) > 0 ? 'hidden' : '' ?>><td colspan="6" class="table-empty">No hay registros para mostrar.</td></tr>
+                <tr data-empty-row <?= count($datos['comentarios']) > 0 ? 'hidden' : '' ?>>
+                    <td colspan="6" class="table-empty">No hay registros para mostrar.</td>
+                </tr>
             </tbody>
         </table>
     </div>

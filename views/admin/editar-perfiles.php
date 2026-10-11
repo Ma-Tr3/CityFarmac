@@ -1,14 +1,32 @@
 <?php
+$datosFormulario = require __DIR__ . '/../../data/admin.php';
+$idFormulario = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$registroFormulario = null;
+foreach ($datosFormulario['perfiles'] as $itemFormulario) {
+    if ($itemFormulario['id'] === $idFormulario) {
+        $registroFormulario = $itemFormulario;
+        break;
+    }
+}
+if ($registroFormulario === null) {
+    http_response_code(404);
+    echo 'Registro no encontrado. <a href="panel-perfiles.php">Volver al listado</a>';
+    exit;
+}
+function escaparFormulario($valor): string {
+    return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
+}
+
 $css = '<link rel="stylesheet" href="../../assets/css/admin-formularios.css">';
 require_once __DIR__ . '/../layouts/head.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 
-<main id="contenido" class="admin-main">
+<main id="contenido" class="admin-main admin-form-page">
     <nav class="breadcrumb" aria-label="Ubicación">
-        <a href="/views/admin/panel-inicio.php">Panel</a>
+        <a href="panel-inicio.php">Panel</a>
         <span>/</span>
-        <a href="/views/admin/panel-perfiles.php">Perfiles</a>
+        <a href="panel-perfiles.php">Perfiles</a>
         <span>/</span>
         <span>Modificar</span>
     </nav>
@@ -18,16 +36,16 @@ require_once __DIR__ . '/../partials/sidebar.php';
             Completá los campos. Los datos se usan solamente como demostración.
         </p>
     </div>
-    <form class="surface admin-form" data-demo-form="admin">
+    <form class="surface admin-form admin-form--perfiles" data-demo-form="admin">
         <div class="form-grid">
-            <div class="span-all">
+            <div class="field-nombre">
                 <label for="nombre">Nombre</label>
                 <input
                     id="nombre"
                     name="nombre"
                     required
                     maxlength="120"
-                    value="Administrador" />
+                    value="<?= escaparFormulario($registroFormulario['nombre']) ?>" />
             </div>
             <fieldset class="span-all">
                 <legend>Secciones permitidas</legend>
@@ -41,7 +59,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                             name="secciones[]"
                             type="checkbox"
                             value="productos"
-                            checked />
+                            <?= in_array('Productos', array_map('trim', explode(',', $registroFormulario['secciones'])), true) ? 'checked' : '' ?> />
                         Productos
                     </label>
                     <label class="check" for="permiso-categorias">
@@ -50,7 +68,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                             name="secciones[]"
                             type="checkbox"
                             value="categorias"
-                            checked />
+                            <?= in_array('Categorías', array_map('trim', explode(',', $registroFormulario['secciones'])), true) ? 'checked' : '' ?> />
                         Categorías
                     </label>
                     <label class="check" for="permiso-marcas">
@@ -59,7 +77,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                             name="secciones[]"
                             type="checkbox"
                             value="marcas"
-                            checked />
+                            <?= in_array('Marcas', array_map('trim', explode(',', $registroFormulario['secciones'])), true) ? 'checked' : '' ?> />
                         Marcas
                     </label>
                     <label class="check" for="permiso-comentarios">
@@ -68,7 +86,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                             name="secciones[]"
                             type="checkbox"
                             value="comentarios"
-                            checked />
+                            <?= in_array('Comentarios', array_map('trim', explode(',', $registroFormulario['secciones'])), true) ? 'checked' : '' ?> />
                         Comentarios
                     </label>
                     <label class="check" for="permiso-usuarios">
@@ -77,7 +95,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                             name="secciones[]"
                             type="checkbox"
                             value="usuarios"
-                            checked />
+                            <?= in_array('Usuarios', array_map('trim', explode(',', $registroFormulario['secciones'])), true) ? 'checked' : '' ?> />
                         Usuarios
                     </label>
                     <label class="check" for="permiso-perfiles">
@@ -86,7 +104,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                             name="secciones[]"
                             type="checkbox"
                             value="perfiles"
-                            checked />
+                            <?= in_array('Perfiles', array_map('trim', explode(',', $registroFormulario['secciones'])), true) ? 'checked' : '' ?> />
                         Perfiles
                     </label>
                 </div>
@@ -94,8 +112,9 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </div>
         <div class="form-feedback" aria-live="polite"></div>
         <div class="form-actions">
-            <a class="button outline" href="/views/admin/panel-perfiles.php"> Cancelar </a>
+            <a class="button outline" href="panel-perfiles.php"> Cancelar </a>
             <button class="button primary" type="submit">Guardar perfil</button>
         </div>
     </form>
 </main>
+<?php require_once __DIR__ . "/../layouts/footer.php"; ?>

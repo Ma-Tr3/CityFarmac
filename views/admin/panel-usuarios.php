@@ -9,7 +9,8 @@ function escapar($valor): string
     return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
 }
 
-$css = '<link rel="stylesheet" href="../../assets/css/panel-usuarios.css">';
+$css = '<link rel="stylesheet" href="../../assets/css/panel-comentarios.css">
+<link rel="stylesheet" href="../../assets/css/header-footer.css">';
 
 require_once __DIR__ . '/../layouts/head.php';
 require_once __DIR__ . '/../partials/sidebar.php';
@@ -69,3 +70,6 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </table>
     </div>
 </main>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+</body>
+</html>

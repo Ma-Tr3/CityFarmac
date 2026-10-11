@@ -13,11 +13,13 @@ if ($registroFormulario === null) {
     echo 'Registro no encontrado. <a href="panel-categorias.php">Volver al listado</a>';
     exit;
 }
-function escaparFormulario($valor): string {
+function escaparFormulario($valor): string
+{
     return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
 }
 
-$css = '<link rel="stylesheet" href="../../assets/css/admin-formularios.css">';
+$css = '<link rel="stylesheet" href="../../assets/css/admin-formularios.css">
+<link rel="stylesheet" href="../../assets/css/header-footer.css">';
 require_once __DIR__ . '/../layouts/head.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
@@ -50,11 +52,13 @@ require_once __DIR__ . '/../partials/sidebar.php';
             <div class="span-all">
                 <label for="padre">Categoría padre (opcional)</label>
                 <select id="padre" name="padre">
-<option value="">Sin padre · Categoría principal</option>
-<?php foreach ($datosFormulario['categorias'] as $categoriaPadre): ?>
-<?php if (!isset($categoriaPadre['padre_id']) && $categoriaPadre['id'] !== $registroFormulario['id']): ?>
-<option value="<?= escaparFormulario($categoriaPadre['id']) ?>" <?= (int) ($registroFormulario['padre_id'] ?? 0) === $categoriaPadre['id'] ? 'selected' : '' ?>><?= escaparFormulario($categoriaPadre['nombre']) ?></option>
-<?php endif; endforeach; ?></select>
+                    <option value="">Sin padre · Categoría principal</option>
+                    <?php foreach ($datosFormulario['categorias'] as $categoriaPadre): ?>
+                        <?php if (!isset($categoriaPadre['padre_id']) && $categoriaPadre['id'] !== $registroFormulario['id']): ?>
+                            <option value="<?= escaparFormulario($categoriaPadre['id']) ?>" <?= (int) ($registroFormulario['padre_id'] ?? 0) === $categoriaPadre['id'] ? 'selected' : '' ?>><?= escaparFormulario($categoriaPadre['nombre']) ?></option>
+                    <?php endif;
+                    endforeach; ?>
+                </select>
                 <small class="muted">Seleccioná un padre para crear una subcategoría.</small>
             </div>
         </div>
@@ -65,4 +69,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </div>
     </form>
 </main>
-<?php require_once __DIR__ . "/../layouts/footer.php"; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+</body>
+
+</html>

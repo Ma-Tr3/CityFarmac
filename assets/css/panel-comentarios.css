@@ -1,0 +1,348 @@
+/* Panel de comentarios */
+
+.admin-main .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 30px;
+    color: #6a7c72;
+    font-size: 13px;
+}
+
+.admin-main .breadcrumb a {
+    color: #096b4d;
+    text-decoration: none;
+}
+
+.admin-main .breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Encabezado */
+
+.admin-main .section-heading {
+    margin-bottom: 20px;
+}
+
+.admin-main .section-heading h1 {
+    margin: 0 0 16px;
+    color: #173d3f;
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.admin-main .muted {
+    margin: 0;
+    color: #6a7c72;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Filtro por estado */
+
+.admin-main .table-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.admin-main .table-filters > div {
+    width: 240px;
+    max-width: 100%;
+}
+
+.admin-main .table-filters label {
+    display: block;
+    margin-bottom: 8px;
+    color: #173d3f;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.admin-main .table-filters select {
+    display: block;
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border: 1px solid #dce6e2;
+    border-radius: 7px;
+    background-color: #ffffff;
+    color: #173d3f;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.admin-main .table-filters select:focus {
+    border-color: #096b4d;
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(9 107 77 / 15%);
+}
+
+/* Contenedor de la tabla */
+
+.admin-main .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    box-sizing: border-box;
+    border: 1px solid #dce6e2;
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+
+.admin-main .table-wrap table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+    color: #173d3f;
+    font-size: 13px;
+    text-align: left;
+}
+
+/* Cabecera */
+
+.admin-main .table-wrap th {
+    padding: 13px 14px;
+    border-bottom: 1px solid #dce6e2;
+    background-color: #f6f9f7;
+    color: #60777a;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* Filas */
+
+.admin-main .table-wrap td {
+    padding: 18px 14px;
+    border-bottom: 1px solid #dce6e2;
+    line-height: 1.6;
+    vertical-align: middle;
+}
+
+.admin-main .table-wrap tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-main .table-wrap tbody tr:hover {
+    background-color: #f8fbf9;
+}
+
+/* Ancho de las columnas */
+
+.admin-main .table-wrap th:nth-child(1) {
+    width: 30%;
+}
+
+.admin-main .table-wrap th:nth-child(2) {
+    width: 12%;
+}
+
+.admin-main .table-wrap th:nth-child(3) {
+    width: 13%;
+}
+
+.admin-main .table-wrap th:nth-child(4) {
+    width: 23%;
+}
+
+.admin-main .table-wrap th:nth-child(5) {
+    width: 10%;
+}
+
+.admin-main .table-wrap th:nth-child(6) {
+    width: 12%;
+}
+
+/* Comentario y correo */
+
+.admin-main .comment-cell {
+    min-width: 240px;
+    overflow-wrap: anywhere;
+}
+
+.admin-main .comment-cell small {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Ranking */
+
+.admin-main .nowrap {
+    white-space: nowrap;
+}
+
+.admin-main .rating {
+    display: inline-block;
+    color: #173d3f;
+    font-size: 15px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+/* Estados */
+
+.admin-main .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.admin-main .badge.state-active {
+    background-color: #e5f3eb;
+    color: #096b4d;
+}
+
+.admin-main .badge.state-inactive {
+    background-color: #f0f2f1;
+    color: #626b67;
+}
+
+/* Aprobar y desaprobar */
+
+.admin-main .row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-main .row-actions .text-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #096b4d;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 180ms ease;
+}
+
+.admin-main .row-actions .text-button:hover {
+    background-color: #eaf4ef;
+}
+
+.admin-main tr[data-state="1"] .text-button {
+    color: #936326;
+}
+
+.admin-main tr[data-state="1"] .text-button:hover {
+    background-color: #fff5e6;
+}
+
+/* Sin resultados */
+
+.admin-main .table-wrap .table-empty {
+    padding: 32px 20px;
+    color: #6a7c72;
+    text-align: center;
+}
+
+/* Aclaración debajo de la tabla */
+
+.admin-main .table-help {
+    margin-top: 16px;
+    font-size: 12px;
+}
+
+/* Mensajes */
+
+.admin-main .form-feedback:empty {
+    display: none;
+}
+
+.admin-main .form-feedback .alert {
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border: 1px solid #bdd6c5;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.admin-main .alert-success {
+    background-color: #eaf4ed;
+    color: #267447;
+}
+
+.admin-main .form-feedback .alert-error {
+    border-color: #ecc6c6;
+    background-color: #fff0f0;
+    color: #a23535;
+}
+
+/* Accesibilidad */
+
+.admin-main .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+.admin-main [hidden] {
+    display: none !important;
+}
+
+.admin-main .breadcrumb a:focus-visible,
+.admin-main .text-button:focus-visible,
+.admin-main .table-wrap:focus-visible {
+    outline: 3px solid #096b4d;
+    outline-offset: 3px;
+}
+
+/* Celulares */
+
+@media (max-width: 600px) {
+    .admin-main .breadcrumb {
+        margin-bottom: 24px;
+    }
+
+    .admin-main .table-filters > div {
+        width: 100%;
+    }
+
+    .admin-main .table-filters select {
+        font-size: 16px;
+    }
+
+    .admin-main .table-wrap th,
+    .admin-main .table-wrap td {
+        padding: 14px 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .admin-main .table-filters select,
+    .admin-main .text-button {
+        transition: none;
+    }
+}

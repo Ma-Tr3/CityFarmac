@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    background: #f5f8f7;
+    color: #173d31;
+    font-family: system-ui, sans-serif;
+}
+
+.cf-login {
+    padding: 40px 20px 64px;
+}
+
+.cf-login .cf-auth-tarjeta {
+    width: 100%;
+    max-width: 470px;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.cf-login .cf-auth-titulo {
+    max-width: 320px;
+    font-size: 36px;
+    line-height: 1.15;
+    margin: 16px 0 20px;
+}
+
+.cf-login .cf-auth-texto {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.cf-login .cf-campo {
+    margin-bottom: 14px;
+}
+
+.cf-login input {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 45px;
+}
+
+.cf-login .cf-boton {
+    margin-top: 10px;
+    background: #086c4e;
+    min-height: 42px;
+}
+
+.cf-login .cf-auth-pie {
+    font-size: 14px;
+}
+
+.login-aviso {
+    padding: 12px;
+    background: #fff3d8;
+    border: 1px solid #e3c578;
+    font-size: 14px;
+}
+
+.cf-error {
+    padding: 86px 20px;
+    text-align: center;
+}
+
+.cf-error-numero {
+    margin: 12px 0 18px;
+    font-size: 66px;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.cf-error h1 {
+    margin: 22px 0;
+    font-size: 26px;
+}
+
+.cf-error-texto {
+    color: #6b7a72;
+    font-size: 14px;
+    margin: 0 0 22px;
+}
+
+.cf-error .cf-boton {
+    display: inline-block;
+    text-decoration: none;
+    background: #086c4e;
+}
+
+@media(max-width:500px) {
+    .cf-login {
+        padding: 24px 14px;
+    }
+
+    .cf-login .cf-auth-tarjeta {
+        padding: 24px;
+    }
+
+    .cf-error {
+        padding: 60px 20px;
+    }
+}

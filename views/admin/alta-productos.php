@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
 $css = '<link rel="stylesheet" href="../../assets/css/admin-formularios.css">';
 require_once __DIR__ . '/../layouts/head.php';
+require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 
@@ -111,8 +114,10 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </div>
         <div class="form-feedback" aria-live="polite"></div>
         <div class="form-actions">
-            <a class="button outline" href="/views/admin/panel-productos.php"> Cancelar </a>
+            <a class="button outline" href="./views/admin/panel-productos.php"> Cancelar </a>
             <button class="button primary" type="submit">Guardar producto</button>
         </div>
     </form>
 </main>
+<?php
+require_once __DIR__ . '/../layouts/footer.php'; 

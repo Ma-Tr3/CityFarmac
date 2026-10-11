@@ -12,6 +12,7 @@ function escapar($valor): string
 $css = '<link rel="stylesheet" href="../../assets/css/panel-perfiles.css">';
 
 require_once __DIR__ . '/../layouts/head.php';
+require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 

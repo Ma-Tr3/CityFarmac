@@ -254,7 +254,7 @@
     background-color: #fff5e6;
 }
 
-/* Sin resultados */
+/* Mensaje Sin resultados */
 
 .admin-main .table-wrap .table-empty {
     padding: 32px 20px;
@@ -295,8 +295,6 @@
     color: #a23535;
 }
 
-/* Accesibilidad */
-
 .admin-main .sr-only {
     position: absolute;
     width: 1px;
@@ -319,7 +317,7 @@
     outline-offset: 3px;
 }
 
-/* Celulares */
+/* Visual movil */
 
 @media (max-width: 600px) {
     .admin-main .breadcrumb {

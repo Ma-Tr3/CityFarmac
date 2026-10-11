@@ -6,4 +6,5 @@
     <title>CityFarmac</title>
     <link rel="icon" href="views/public/assets/images/logo.png" type="image/png">
     <link rel="stylesheet" href="../../assets/css/styles.css">
+    <?= $css ?? '' ?>
 </head>

@@ -1,13 +1,30 @@
 <?php
+declare(strict_types=1);
+
+$datos = require_once __DIR__ . '/../../data/admin.php';
+
+function escapar($valor): string
+{
+    return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
+}
+
+$css = '<link rel="stylesheet" href="../../assets/css/panel-usuarios.css">';
+
 require_once __DIR__ . '/../layouts/head.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 
+<<<<<<< HEAD
 <link rel="stylesheet" href="../../assets/css/panel-usuarios.css">
 
 <main id="contenido" class="admin-main admin-panel-usuarios">
     <nav class="breadcrumb" aria-label="Ubicación">
         <a href="panel-inicio.php">Panel</a>
+=======
+<main id="contenido" class="admin-main">
+    <nav class="breadcrumb" aria-label="Ubicación">
+        <a href="/CityFarmac/views/admin/panel-inicio.php">Panel</a>
+>>>>>>> d766bb0 (Maquetado y estilos del panel de administración arreglos de codigo)
         <span>/</span>
         <span>Usuarios</span>
     </nav>
@@ -16,7 +33,11 @@ require_once __DIR__ . '/../partials/sidebar.php';
             <h1>Usuarios</h1>
             <p class="muted">Gestioná usuarios y su disponibilidad.</p>
         </div>
+<<<<<<< HEAD
         <a class="button primary" href="formulario-usuarios.php"> + Nuevo registro </a>
+=======
+        <a class="button primary" href="/CityFarmac/views/admin/alta-usuarios.php"> + Nuevo registro </a>
+>>>>>>> d766bb0 (Maquetado y estilos del panel de administración arreglos de codigo)
     </div>
     <div id="admin-feedback" class="form-feedback" aria-live="polite"></div>
     <div
@@ -38,6 +59,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                 </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
                 <tr data-record data-state="1">
                     <td>Marcelo Tremari</td>
                     <td>marcelo@ejemplo.com</td>
@@ -108,16 +130,25 @@ require_once __DIR__ . '/../partials/sidebar.php';
                         </div>
                     </td>
                 </tr>
+=======
+                <?php foreach ($datos['usuarios'] as $registro): ?>
+                    <tr data-record data-state="<?= escapar($registro['estado']) ?>">
+                        <td><?= escapar($registro['nombre']) ?></td>
+                        <td><?= escapar($registro['email']) ?></td>
+                        <td><?= escapar($registro['perfil']) ?></td>
+                        <td><span class="badge <?= $registro['estado'] ? 'state-active' : 'state-inactive' ?>" data-state-badge><?= $registro['estado'] ? 'Activo' : 'Inactivo' ?></span></td>
+                        <td>
+                            <div class="row-actions"><a href="editar-usuarios.php?id=<?= escapar($registro['id']) ?>">Modificar<span class="sr-only"> <?= escapar($registro['nombre']) ?></span></a>
+                                <button type="button" class="text-button" data-toggle-state data-comments="0"><?= $registro['estado'] ? 'Inactivar' : 'Activar' ?></button>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+>>>>>>> d766bb0 (Maquetado y estilos del panel de administración arreglos de codigo)
                 <tr data-empty-row hidden>
-                    <td colspan="5" class="table-empty">
-                        No hay registros para mostrar.
-                    </td>
+                    <td colspan="5" class="table-empty">No hay registros para mostrar.</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <p class="muted small table-help">
-        Las acciones son simuladas. En pantallas pequeñas podés deslizar la tabla para
-        ver todas las columnas.
-    </p>
 </main>

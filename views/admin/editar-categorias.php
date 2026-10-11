@@ -1,8 +1,9 @@
 <?php
+$css = '<link rel="stylesheet" href="../../assets/css/admin-formularios.css">';
 require_once __DIR__ . '/../layouts/head.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
-<link rel="stylesheet" href="../../assets/css/editar-categorias.css">
+
 <main id="contenido" class="admin-main">
     <nav class="breadcrumb" aria-label="Ubicación">
         <a href="/views/admin/panel-inicio.php">Panel</a>

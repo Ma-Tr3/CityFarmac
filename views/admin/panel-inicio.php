@@ -15,37 +15,37 @@ require_once __DIR__ . '/../partials/sidebar.php';
             <span class="dashboard-letter" aria-hidden="true"> P </span>
             <h2>Productos</h2>
             <p class="muted">Administrá el catálogo y sus destacados.</p>
-            <a class="button outline" href="#"> Gestionar → </a>
+            <a class="button outline" href="/CityFarmac/views/admin/panel-productos.php"> Gestionar → </a>
         </article>
         <article class="surface dashboard-card">
             <span class="dashboard-letter" aria-hidden="true"> C </span>
             <h2>Categorías</h2>
             <p class="muted">Organizá categorías y subcategorías.</p>
-            <a class="button outline" href="#"> Gestionar → </a>
+            <a class="button outline" href="/CityFarmac/views/admin/panel-categorias.php"> Gestionar → </a>
         </article>
         <article class="surface dashboard-card">
             <span class="dashboard-letter" aria-hidden="true"> M </span>
             <h2>Marcas</h2>
             <p class="muted">Mantené las marcas del catálogo.</p>
-            <a class="button outline" href="#"> Gestionar → </a>
+            <a class="button outline" href="/CityFarmac/views/admin/panel-marcas.php"> Gestionar → </a>
         </article>
         <article class="surface dashboard-card">
             <span class="dashboard-letter" aria-hidden="true"> C </span>
             <h2>Comentarios</h2>
             <p class="muted">Revisá y moderá las opiniones.</p>
-            <a class="button outline" href="#"> Gestionar → </a>
+            <a class="button outline" href="/CityFarmac/views/admin/panel-comentarios.php"> Gestionar → </a>
         </article>
         <article class="surface dashboard-card">
             <span class="dashboard-letter" aria-hidden="true"> U </span>
             <h2>Usuarios</h2>
             <p class="muted">Gestioná los usuarios del panel.</p>
-            <a class="button outline" href="#"> Gestionar → </a>
+            <a class="button outline" href="/CityFarmac/views/admin/panel-usuarios.php"> Gestionar → </a>
         </article>
         <article class="surface dashboard-card">
             <span class="dashboard-letter" aria-hidden="true"> P </span>
             <h2>Perfiles</h2>
             <p class="muted">Definí el acceso a cada sección.</p>
-            <a class="button outline" href="#"> Gestionar → </a>
+            <a class="button outline" href="/CityFarmac/views/admin/panel-perfiles.php"> Gestionar → </a>
         </article>
     </div>
 </main>

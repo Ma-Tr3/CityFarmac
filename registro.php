@@ -1,10 +1,10 @@
 <?php
 $css = '
-<link rel="stylesheet" href="../../assets/css/public.css">
-<link rel="stylesheet" href="../../assets/css/header-footer.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/public.css">
+<link rel="stylesheet" href="assets/css/header-footer.css">
 ';
-// Esta página está en la raíz, así que los archivos (CSS, etc.) se buscan desde acá
-$base = '';
+
 
 require_once __DIR__ . '/views/layouts/head.php';
 require_once __DIR__ . '/views/layouts/header.php';

@@ -47,6 +47,8 @@ en caso de ser necesario renombre la carpeta dentro del htdocs y vea si no hay e
 |---|---|
 | Login | `login.php` |
 | Registro | `registro.php` |
+| Usuario Admin | `admin@cityfarmac.com` |
+| Password Admin | `Admin12345!` |
 
 ### Panel de administración
 

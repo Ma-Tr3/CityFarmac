@@ -1,0 +1,174 @@
+/* Buscador del panel de administración */
+.admin-main form.table-filters {
+    display: grid;
+    grid-template-columns: minmax(0, 460px) auto;
+    justify-content: start;
+    align-items: end;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.admin-main form.table-filters > label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+.admin-main form.table-filters input:not([type="hidden"]) {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+    margin: 0;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border: 1px solid #dfe7e2;
+    border-radius: 9px;
+    background: #fff;
+    color: #243c33;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.admin-main form.table-filters > button.button.primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 44px;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 22px;
+    box-sizing: border-box;
+    border: 1px solid #28784c;
+    border-radius: 9px;
+    background: #28784c;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.admin-main form.table-filters > button.button.primary:hover {
+    background: #1f603d;
+    border-color: #1f603d;
+}
+
+/* Acciones de las tablas */
+.admin-main .row-actions > form {
+    margin: 0;
+    padding: 0;
+}
+
+.admin-main .row-actions .text-button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #28784c;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-main .row-actions .text-button:hover {
+    text-decoration: underline;
+}
+
+.admin-main .table-product img {
+    object-fit: contain;
+}
+
+/* Buscador y filtros del catálogo */
+.cf-filtros > form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--borde, #e3e8e5);
+}
+
+.cf-filtros > form label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    color: var(--texto, #1b2b22);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cf-filtros > form input:not([type="hidden"]),
+.cf-filtros > form select {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border: 1px solid var(--borde, #e3e8e5);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--texto, #1b2b22);
+    font: inherit;
+    font-size: 13px;
+}
+
+.cf-filtros > form button {
+    width: 100%;
+    margin-top: 6px;
+}
+
+.cf-contenedor button,
+.cf-contenedor input,
+.cf-contenedor select,
+.cf-contenedor textarea {
+    font-family: inherit;
+}
+
+/* Imágenes de productos */
+.cf-tarjeta-imagen {
+    overflow: hidden;
+}
+
+.cf-tarjeta-imagen > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: inherit;
+}
+
+.cf-detalle-imagen > img {
+    display: block;
+    margin: auto;
+}
+
+/* Foco para navegación con teclado */
+.admin-main form.table-filters input:focus-visible,
+.admin-main form.table-filters button:focus-visible,
+.cf-filtros > form input:focus-visible,
+.cf-filtros > form select:focus-visible,
+.cf-filtros > form button:focus-visible {
+    outline: 2px solid #2d6a4f;
+    outline-offset: 2px;
+}
+
+/* Vista móvil */
+@media (max-width: 768px) {
+    .admin-main form.table-filters {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .admin-main form.table-filters > button.button.primary {
+        width: 100%;
+    }
+}

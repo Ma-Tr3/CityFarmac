@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__ . '/views/layouts/rutas.php';
 $css = '
-<link rel="stylesheet" href="assets/css/styles.css">
-<link rel="stylesheet" href="assets/css/public.css">
-<link rel="stylesheet" href="assets/css/header-footer.css">
+<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/styles.css') . '">
+<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/public.css') . '">
+<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/header-footer.css') . '">
 ';
 
 
@@ -18,7 +19,7 @@ require_once __DIR__ . '/views/layouts/header.php';
         <h1 class="cf-auth-titulo">Creá tu cuenta.</h1>
         <p class="cf-auth-texto">Completá tus datos para registrarte.</p>
 
-        <form method="post" action="registro.php">
+        <form method="post" action="<?= rutaCityFarmac('registro.php') ?>">
             <div class="cf-campo">
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" autocomplete="name" required>
@@ -37,11 +38,12 @@ require_once __DIR__ . '/views/layouts/header.php';
             </div>
 
             <button type="submit" class="cf-boton cf-boton--bloque">Registrarme</button>
-            <p class="cf-auth-pie"><a href="login.php">Ya tengo una cuenta</a></p>
+            <p class="cf-auth-pie"><a href="<?= rutaCityFarmac('login.php') ?>">Ya tengo una cuenta</a></p>
         </form>
     </div>
 </main>
 
 <?php require_once __DIR__ . '/views/layouts/footer.php'; ?>
 </body>
+
 </html>

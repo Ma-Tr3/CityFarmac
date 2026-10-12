@@ -1,25 +1,29 @@
 <?php
-$css = '<link rel="stylesheet" href="../../assets/css/admin-formularios.css">
-<link rel="stylesheet" href="../../assets/css/header-footer.css">';
+require_once __DIR__ . '/../../data/formulario.php';
+procesarFormulario('categorias');
+require_once __DIR__ . '/../layouts/rutas.php';
+$css = '<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/admin-formularios.css') . '">
+<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/header-footer.css') . '">';
 require_once __DIR__ . '/../layouts/head.php';
 require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 <main id="contenido" class="admin-main admin-form-page">
     <nav class="breadcrumb" aria-label="Ubicación">
-        <a href="panel-inicio.php">Panel</a>
+        <a href="<?= rutaCityFarmac('views/admin/panel-inicio.php') ?>">Panel</a>
         <span>/</span>
-        <a href="panel-categorias.php">Categorías</a>
+        <a href="<?= rutaCityFarmac('views/admin/panel-categorias.php') ?>">Categorías</a>
         <span>/</span>
         <span>Nuevo registro</span>
     </nav>
     <div class="page-heading">
         <h1>Nuevo categoría</h1>
         <p class="muted">
-            Completá los campos. Los datos se usan solamente como demostración.
+            Completá los campos. Los cambios se guardan al confirmar el formulario.
         </p>
     </div>
-    <form class="surface admin-form admin-form--categorias" data-demo-form="admin">
+    <form class="surface admin-form admin-form--categorias" method="post" enctype="multipart/form-data">
+        <?= camposFormulario() ?>
         <div class="form-grid">
             <div class="field-nombre">
                 <label for="nombre">Nombre</label>
@@ -27,18 +31,13 @@ require_once __DIR__ . '/../partials/sidebar.php';
             </div>
             <div class="span-all">
                 <label for="padre">Categoría padre (opcional)</label>
-                <select id="padre" name="padre">
-                    <option value="">Sin padre · Categoría principal</option>
-                    <option value="1">Dermocosmética</option>
-                    <option value="2">Cuidado personal</option>
-                    <option value="3">Perfumería</option>
-                </select>
+                <select id="padre" name="padre"><?= opcionesFormulario('padre', 'categorias', $registroFormulario ?? []) ?></select>
                 <small class="muted">Seleccioná un padre para crear una subcategoría.</small>
             </div>
         </div>
         <div class="form-feedback" aria-live="polite"></div>
         <div class="form-actions">
-            <a class="button outline" href="panel-categorias.php"> Cancelar </a>
+            <a class="button outline" href="<?= rutaCityFarmac('views/admin/panel-categorias.php') ?>"> Cancelar </a>
             <button class="button primary" type="submit">Guardar categoría</button>
         </div>
     </form>
@@ -47,3 +46,4 @@ require_once __DIR__ . '/../partials/sidebar.php';
 </body>
 
 </html>
+<script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>

@@ -1,4 +1,6 @@
 <?php
+$modoAcceso = 'registro';
+require_once __DIR__ . '/data/acceso.php';
 require_once __DIR__ . '/views/layouts/rutas.php';
 $css = '
 <link rel="stylesheet" href="' . rutaCityFarmac('assets/css/styles.css') . '">
@@ -8,6 +10,7 @@ $css = '
 
 
 require_once __DIR__ . '/views/layouts/head.php';
+echo '<body>';
 require_once __DIR__ . '/views/layouts/header.php';
 
 ?>
@@ -15,11 +18,14 @@ require_once __DIR__ . '/views/layouts/header.php';
 
 <main class="cf-auth">
     <div class="cf-auth-tarjeta">
-        <p class="cf-etiqueta">City Farmac · Administración</p>
+        <p class="cf-etiqueta">City Farmac · Mi cuenta</p>
         <h1 class="cf-auth-titulo">Creá tu cuenta.</h1>
         <p class="cf-auth-texto">Completá tus datos para registrarte.</p>
 
-        <form method="post" action="<?= rutaCityFarmac('registro.php') ?>">
+        <?php if ($errorAcceso): ?><p class="login-aviso" role="alert"><?= escaparDato($errorAcceso) ?></p><?php endif; ?>
+        <?php if (isset($_GET['registrado'])): ?><p role="status">Cuenta creada. Ya podés iniciar sesión.</p><?php endif; ?>
+        <form method="post" action="<?= rutaCityFarmac('registro.php') ?>
+<input type=" hidden" name="csrf" value="<?= escaparDato($_SESSION['csrf']) ?>">
             <div class="cf-campo">
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" autocomplete="name" required>

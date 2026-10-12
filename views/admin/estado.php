@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/../../data/sesion.php';
+exigirPanel((string)($_POST['entidad'] ?? ''));
+
 require_once __DIR__ . '/../../data/formulario.php';
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

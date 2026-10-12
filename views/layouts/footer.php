@@ -10,6 +10,7 @@
             <a href="<?= rutaCityFarmac('views/public/inicio.php') ?>">
                 CityFarmac
             </a>
+
             <p>
                 Productos para acompañar tu bienestar<br>
                 y tu cuidado de todos los días.
@@ -22,9 +23,11 @@
             <a href="<?= rutaCityFarmac('views/public/inicio.php') ?>">
                 Inicio
             </a>
+
             <a href="<?= rutaCityFarmac('views/public/catalogo.php') ?>">
                 Productos
             </a>
+
             <a href="<?= rutaCityFarmac('views/public/contacto.php') ?>">
                 Contacto
             </a>
@@ -46,8 +49,14 @@
             Todos los derechos reservados.
         </span>
 
-        <a href="<?= rutaCityFarmac('views/admin/panel-inicio.php') ?>">
-            Panel de administración
-        </a>
+        <?php if (
+            function_exists('usuarioActual')
+            && function_exists('permisosUsuario')
+            && permisosUsuario(usuarioActual())
+        ): ?>
+            <a href="<?= rutaCityFarmac('views/admin/panel-inicio.php') ?>">
+                Panel de administración
+            </a>
+        <?php endif; ?>
     </div>
 </footer>

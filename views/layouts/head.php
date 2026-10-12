@@ -1,4 +1,5 @@
 <?php require_once __DIR__ . '/rutas.php';
+require_once __DIR__ . '/../../data/sesion.php';
 $esAdminCityFarmac = strpos($relativoCityFarmac, '/views/admin/') === 0;
 ?>
 <!DOCTYPE html>

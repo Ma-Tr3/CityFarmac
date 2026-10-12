@@ -8,6 +8,7 @@ $css = '
 <link rel="stylesheet" href="' . rutaCityFarmac('assets/css/login-error.css') . '">
 ';
 require_once __DIR__ . '/views/layouts/head.php';
+echo '<body>';
 require_once __DIR__ . '/views/layouts/header.php';
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/almacen.php';
+require_once __DIR__ . '/sesion.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(32));
 function camposFormulario(): string
@@ -14,6 +14,7 @@ function validarToken(): void
 function opcionesFormulario(string $campo, string $coleccion, array $registro): string
 {
     $datos = cargarDatos();
+    if ($campo === 'perfil') $datos['perfiles'][] = ['id'=>0,'estado'=>1,'nombre'=>'Usuario'];
     $html = '<option value="">Seleccioná una opción</option>';
     $seleccionado = $registro[$campo . '_id'] ?? $registro[$campo] ?? '';
     foreach ($datos[$coleccion] as $r) {
@@ -28,6 +29,7 @@ function opcionesFormulario(string $campo, string $coleccion, array $registro): 
 }
 function procesarFormulario(string $entidad): void
 {
+    exigirPanel($entidad);
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') return;
     $imagenNueva = null;
     try {
@@ -44,7 +46,7 @@ function procesarFormulario(string $entidad): void
                 if (!filter_var($r['email'], FILTER_VALIDATE_EMAIL)) throw new RuntimeException('Email inválido.');
                 foreach ($datos['usuarios'] as $u) if ($u['id'] != $r['id'] && strcasecmp($u['email'], $r['email']) === 0) throw new RuntimeException('El email ya existe.');
                 $r['perfil'] = (string)($_POST['perfil'] ?? '');
-                if (!in_array($r['perfil'], array_column($datos['perfiles'], 'nombre'), true)) throw new RuntimeException('Perfil inválido.');
+                if (!in_array($r['perfil'], array_merge(['Usuario'], array_column($datos['perfiles'], 'nombre')), true)) throw new RuntimeException('Perfil inválido.');
                 $password = (string)($_POST['password'] ?? '');
                 if (!$viejo || $password !== '') {
                     if (strlen($password) < 8) throw new RuntimeException('La contraseña debe tener al menos 8 caracteres.');

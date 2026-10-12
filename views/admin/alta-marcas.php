@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/../../data/sesion.php';
+exigirPanel('marcas');
+
 require_once __DIR__ . '/../../data/formulario.php';
 procesarFormulario('marcas');
 require_once __DIR__ . '/../layouts/rutas.php';

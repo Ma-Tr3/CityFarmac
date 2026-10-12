@@ -196,7 +196,8 @@
             "estado": 1,
             "nombre": "Marcelo Tremari",
             "email": "marcelo@ejemplo.com",
-            "perfil": "Administrador"
+            "perfil": "Usuario",
+            "password": "$2y$10$DvUVGds6fzudPfIA7OomheSX6sZtZ3mJUn5sSwTLZGI2KKncABkvK"
         },
         {
             "id": 2,
@@ -211,6 +212,14 @@
             "nombre": "Martín Rojas",
             "email": "martin@ejemplo.com",
             "perfil": "Moderador"
+        },
+        {
+            "id": 4,
+            "estado": 1,
+            "nombre": "Administrador",
+            "email": "admin@cityfarmac.com",
+            "perfil": "Administrador",
+            "password": "$2y$10$lfJDP\/9j7u\/27VvZl6vN4OjTb3Yy3F7EpNagd5C6X4MKt142Ks3Ve"
         }
     ],
     "perfiles": [

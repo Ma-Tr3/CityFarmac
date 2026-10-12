@@ -1,6 +1,9 @@
 <?php
 
 declare(strict_types=1);
+require_once __DIR__ . '/../../data/sesion.php';
+exigirPanel('productos');
+
 
 require_once __DIR__ . '/../../data/formulario.php';
 $datos = require __DIR__ . '/../../data/admin.php';

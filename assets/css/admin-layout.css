@@ -1,0 +1,68 @@
+/* Header y footer a todo lo ancho. */
+.admin-page>.site-header,
+.admin-page>.site-footer {
+    margin-left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.admin-page .site-header-inner {
+    max-width: none;
+}
+
+/* Sidebar y contenido dentro del mismo panel. */
+.admin-layout {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+    padding: 28px;
+}
+
+.admin-layout>.sidebar {
+    position: static;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    padding: 18px;
+    overflow: visible;
+    background: #fff;
+    border: 1px solid #e1e8e4;
+    border-radius: 14px;
+    box-sizing: border-box;
+}
+
+.admin-layout>.sidebar>span {
+    margin-bottom: 4px;
+}
+
+.admin-layout>.sidebar>a:last-child {
+    margin-top: 16px;
+    padding-top: 18px;
+    border-top: 1px solid #e1e8e4;
+    border-radius: 0;
+}
+
+.admin-layout>.admin-main {
+    margin-left: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+.admin-layout .dashboard-grid {
+    max-width: none;
+}
+
+/* Celulares y tablets pequeñas. */
+@media (max-width: 768px) {
+    .admin-layout {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 20px;
+        gap: 24px;
+    }
+
+    .admin-layout>.sidebar nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

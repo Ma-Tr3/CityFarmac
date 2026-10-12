@@ -1,7 +1,11 @@
 <?php
 
 declare(strict_types=1);
+require_once __DIR__ . '/../../data/sesion.php';
+exigirPanel('comentarios');
 
+
+require_once __DIR__ . '/../../data/formulario.php';
 $datos = require __DIR__ . '/../../data/admin.php';
 
 function escapar($valor): string
@@ -9,7 +13,10 @@ function escapar($valor): string
     return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
 }
 
-$css = '<link rel="stylesheet" href="../../assets/css/panel-comentarios.css">';
+$datos['comentarios'] = buscarArray($datos['comentarios'], (string)($_GET['q'] ?? ''));
+require_once __DIR__ . '/../layouts/rutas.php';
+$css = '<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/panel-comentarios.css') . '">
+<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/header-footer.css') . '">';
 
 $filtro = filter_input(INPUT_GET, 'producto', FILTER_VALIDATE_INT);
 if ($filtro) {
@@ -20,13 +27,14 @@ if ($filtro) {
 }
 
 require_once __DIR__ . '/../layouts/head.php';
+require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 
 
 <main id="contenido" class="admin-main">
     <nav class="breadcrumb" aria-label="Ubicación">
-        <a href="panel-inicio.php">Panel</a>
+        <a href="<?= rutaCityFarmac('views/admin/panel-inicio.php') ?>">Panel</a>
         <span>/</span>
         <span>Comentarios</span>
     </nav>
@@ -36,7 +44,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
             <p class="muted">Gestioná comentarios y su disponibilidad.</p>
         </div>
     </div>
-    <div id="admin-feedback" class="form-feedback" aria-live="polite"></div>
+    <div id="admin-feedback" class="form-feedback" aria-live="polite"><?php if (isset($_GET['guardado'])): ?>Registro guardado correctamente.<?php endif; ?></div>
     <div class="table-filters">
         <div>
             <label for="filter-state">Estado</label>
@@ -47,6 +55,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
             </select>
         </div>
     </div>
+    <form method="get" class="table-filters"><label>Buscar <input name="q" value="<?= escaparDato($_GET['q'] ?? '') ?>" placeholder="Nombre, ID u otro dato"></label><button class="button primary">Buscar</button></form>
     <div
         class="table-wrap"
         tabindex="0"
@@ -76,7 +85,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
                         <td><span class="badge <?= $registro['estado'] ? 'state-active' : 'state-inactive' ?>" data-state-badge><?= $registro['estado'] ? 'Activo' : 'Inactivo' ?></span></td>
                         <td>
                             <div class="row-actions">
-                                <button type="button" class="text-button" data-toggle-state data-comments="1"><?= $registro['estado'] ? 'Desaprobar' : 'Aprobar' ?></button>
+                                <form method="post" action="<?= rutaCityFarmac('views/admin/estado.php') ?>" style="display:inline"><?= camposFormulario() ?><input type="hidden" name="entidad" value="comentarios"><input type="hidden" name="id" value="<?= escaparDato($registro['id']) ?>"><button class="text-button"><?= $registro['estado'] ? 'Inactivar' : 'Activar' ?></button></form>
                             </div>
                         </td>
                     </tr>
@@ -88,3 +97,8 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </table>
     </div>
 </main>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+</body>
+
+</html>
+<script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>

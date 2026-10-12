@@ -1,24 +1,33 @@
 <?php
-$css = '<link rel="stylesheet" href="../../assets/css/admin-formularios.css">';
+require_once __DIR__ . '/../../data/sesion.php';
+exigirPanel('usuarios');
+
+require_once __DIR__ . '/../../data/formulario.php';
+procesarFormulario('usuarios');
+require_once __DIR__ . '/../layouts/rutas.php';
+$css = '<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/admin-formularios.css') . '">
+<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/header-footer.css') . '">';
 require_once __DIR__ . '/../layouts/head.php';
+require_once __DIR__ . '/../layouts/header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 
 <main id="contenido" class="admin-main admin-form-page">
     <nav class="breadcrumb" aria-label="Ubicación">
-        <a href="panel-inicio.php">Panel</a>
+        <a href="<?= rutaCityFarmac('views/admin/panel-inicio.php') ?>">Panel</a>
         <span>/</span>
-        <a href="panel-usuarios.php">Usuarios</a>
+        <a href="<?= rutaCityFarmac('views/admin/panel-usuarios.php') ?>">Usuarios</a>
         <span>/</span>
         <span>Nuevo registro</span>
     </nav>
     <div class="page-heading">
         <h1>Nuevo usuario</h1>
         <p class="muted">
-            Completá los campos. Los datos se usan solamente como demostración.
+            Completá los campos. Los cambios se guardan al confirmar el formulario.
         </p>
     </div>
-    <form class="surface admin-form admin-form--usuarios" data-demo-form="admin">
+    <form class="surface admin-form admin-form--usuarios" method="post" enctype="multipart/form-data">
+        <?= camposFormulario() ?>
         <div class="form-grid">
             <div class="field-nombre">
                 <label for="nombre">Nombre</label>
@@ -37,12 +46,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
             </div>
             <div class="field-perfil">
                 <label for="perfil">Perfil</label>
-                <select id="perfil" name="perfil" required>
-                    <option value="">Seleccioná un perfil</option>
-                    <option>Administrador</option>
-                    <option>Editor</option>
-                    <option>Moderador</option>
-                </select>
+                <select id="perfil" name="perfil" required><?= opcionesFormulario('perfil', 'perfiles', $registroFormulario ?? []) ?></select>
             </div>
             <div class="field-password">
                 <label for="password">Contraseña </label>
@@ -55,15 +59,19 @@ require_once __DIR__ . '/../partials/sidebar.php';
                     required
                     aria-describedby="password-help" />
                 <small id="password-help" class="muted">
-                    Mínimo 8 caracteres. Usá una contraseña ficticia para la demo.
+                    Mínimo 8 caracteres. La contraseña se guarda cifrada.
                 </small>
             </div>
         </div>
         <div class="form-feedback" aria-live="polite"></div>
         <div class="form-actions">
-            <a class="button outline" href="panel-usuarios.php"> Cancelar </a>
+            <a class="button outline" href="<?= rutaCityFarmac('views/admin/panel-usuarios.php') ?>"> Cancelar </a>
             <button class="button primary" type="submit">Guardar usuario</button>
         </div>
     </form>
 </main>
-<?php require_once __DIR__ . "/../layouts/footer.php"; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+</body>
+
+</html>
+<script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>

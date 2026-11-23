@@ -10,8 +10,8 @@ procesarFormulario('productos');
 require_once __DIR__ . '/../layouts/rutas.php';
 $css = '<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/admin-formularios.css') . '">
 <link rel="stylesheet" href="' . rutaCityFarmac('assets/css/header-footer.css') . '">';
-require_once __DIR__ . '/../layouts/head.php';
-require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../layouts/admin-head.php';
+require_once __DIR__ . '/../layouts/admin-header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 
@@ -31,6 +31,7 @@ require_once __DIR__ . '/../partials/sidebar.php';
     </div>
     <form class="surface admin-form admin-form--productos" method="post" enctype="multipart/form-data">
         <?= camposFormulario() ?>
+        <?php require_once __DIR__ . '/../partials/mensajes.php'; ?>
         <div class="form-grid">
             <div class="field-nombre">
                 <label for="nombre">Nombre</label>
@@ -103,15 +104,14 @@ require_once __DIR__ . '/../partials/sidebar.php';
                 Marcar como producto destacado
             </label>
         </div>
-        <div class="form-feedback" aria-live="polite"></div>
         <div class="form-actions">
             <a class="button outline" href="<?= rutaCityFarmac('views/admin/panel-productos.php') ?>"> Cancelar </a>
             <button class="button primary" type="submit">Guardar producto</button>
         </div>
     </form>
 </main>
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/admin-footer.php'; ?>
+<script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>
 </body>
 
 </html>
-<script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>

@@ -4,8 +4,8 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(32));
 function camposFormulario(): string
 {
-    $error = $GLOBALS['errorFormulario'] ?? '';
-    return '<input type="hidden" name="csrf" value="' . escaparDato($_SESSION['csrf']) . '"><p role="status">' . escaparDato($error) . '</p>';
+    
+    return '<input type="hidden" name="csrf" value="' . escaparDato($_SESSION['csrf']) . '">';
 }
 function validarToken(): void
 {

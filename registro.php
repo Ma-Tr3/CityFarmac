@@ -22,34 +22,37 @@ require_once __DIR__ . '/views/layouts/header.php';
         <h1 class="cf-auth-titulo">Creá tu cuenta.</h1>
         <p class="cf-auth-texto">Completá tus datos para registrarte.</p>
 
-        <?php if ($errorAcceso): ?><p class="login-aviso" role="alert"><?= escaparDato($errorAcceso) ?></p><?php endif; ?>
-        <?php if (isset($_GET['registrado'])): ?><p role="status">Cuenta creada. Ya podés iniciar sesión.</p><?php endif; ?>
-        <form method="post" action="<?= rutaCityFarmac('registro.php') ?>
-<input type=" hidden" name="csrf" value="<?= escaparDato($_SESSION['csrf']) ?>">
-            <div class="cf-campo">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" autocomplete="name" required>
-            </div>
-            <div class="cf-campo">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" autocomplete="email" required>
-            </div>
-            <div class="cf-campo">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" minlength="8" autocomplete="new-password" required>
-            </div>
-            <div class="cf-campo">
-                <label for="password2">Confirmar contraseña</label>
-                <input type="password" id="password2" name="password2" minlength="8" autocomplete="new-password" required>
-            </div>
+        <?php if ($errorAcceso): ?>
+            <p class="login-aviso" role="alert"><?= escaparDato($errorAcceso) ?></p>
+        <?php endif; ?>
+        <?php if (isset($_GET['registrado'])): ?>
+            <p role="status">Cuenta creada. Ya podés iniciar sesión.</p>
+        <?php endif; ?>
+        
+            <form method="post" action="<?= rutaCityFarmac('registro.php') ?>">
+                <input type="hidden" name="csrf" value="<?= escaparDato($_SESSION['csrf']) ?>">
+                <div class="cf-campo">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" autocomplete="name" required>
+                </div>
+                <div class="cf-campo">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
+                </div>
+                <div class="cf-campo">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" minlength="8" autocomplete="new-password" required>
+                </div>
+                <div class="cf-campo">
+                    <label for="password2">Confirmar contraseña</label>
+                    <input type="password" id="password2" name="password2" minlength="8" autocomplete="new-password" required>
+                </div>
 
-            <button type="submit" class="cf-boton cf-boton--bloque">Registrarme</button>
-            <p class="cf-auth-pie"><a href="<?= rutaCityFarmac('login.php') ?>">Ya tengo una cuenta</a></p>
-        </form>
+                <button type="submit" class="cf-boton cf-boton--bloque">Registrarme</button>
+                <p class="cf-auth-pie"><a href="<?= rutaCityFarmac('login.php') ?>">Ya tengo una cuenta</a></p>
+            </form>
     </div>
 </main>
-
-<?php require_once __DIR__ . '/views/layouts/footer.php'; ?>
 </body>
-
+<?php require_once __DIR__ . '/views/layouts/footer.php'; ?>
 </html>

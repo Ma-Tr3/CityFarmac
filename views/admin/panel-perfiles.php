@@ -8,7 +8,7 @@ exigirPanel('perfiles');
 require_once __DIR__ . '/../../data/formulario.php';
 $datos = require __DIR__ . '/../../data/admin.php';
 
-function escapar($valor): string
+function escapar(mixed $valor): string
 {
     return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
 }
@@ -18,8 +18,8 @@ require_once __DIR__ . '/../layouts/rutas.php';
 $css = '<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/panel-perfiles.css') . '">
 <link rel="stylesheet" href="' . rutaCityFarmac('assets/css/header-footer.css') . '">';
 
-require_once __DIR__ . '/../layouts/head.php';
-require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../layouts/admin-head.php';
+require_once __DIR__ . '/../layouts/admin-header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 
@@ -37,8 +37,11 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </div>
         <a class="button primary" href="<?= rutaCityFarmac('views/admin/alta-perfiles.php') ?>"> + Nuevo registro </a>
     </div>
-    <div id="admin-feedback" class="form-feedback" aria-live="polite"><?php if (isset($_GET['guardado'])): ?>Registro guardado correctamente.<?php endif; ?></div>
-    <form method="get" class="table-filters"><label>Buscar <input name="q" value="<?= escaparDato($_GET['q'] ?? '') ?>" placeholder="Nombre, ID u otro dato"></label><button class="button primary">Buscar</button></form>
+    <?php require_once __DIR__ . '/../partials/mensajes.php'; ?>
+    <form method="get" class="table-filters">
+        <label>Buscar <input name="q" value="<?= escaparDato($_GET['q'] ?? '') ?>" placeholder="Nombre, ID u otro dato"></label>
+        <button class="button primary">Buscar</button>
+    </form>
     <div
         class="table-wrap"
         tabindex="0"
@@ -76,8 +79,8 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </table>
     </div>
 </main>
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/admin-footer.php'; ?>
+<script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>
 </body>
 
 </html>
-<script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>

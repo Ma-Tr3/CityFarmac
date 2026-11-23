@@ -8,26 +8,37 @@ exigirPanel('comentarios');
 require_once __DIR__ . '/../../data/formulario.php';
 $datos = require __DIR__ . '/../../data/admin.php';
 
-function escapar($valor): string
+function escapar(mixed $valor): string
 {
     return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
 }
 
 $datos['comentarios'] = buscarArray($datos['comentarios'], (string)($_GET['q'] ?? ''));
-require_once __DIR__ . '/../layouts/rutas.php';
-$css = '<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/panel-comentarios.css') . '">
-<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/header-footer.css') . '">';
+
+$estadoFiltro = (string)($_GET['estado'] ?? '');
+
+if(in_array($estadoFiltro, ['0', '1'], true)) {
+    $datos['comentarios'] = array_values(array_filter(
+        $datos['comentarios'],
+        fn($registro) => (int)($registro['estado'] ?? '') === (int)$estadoFiltro));
+}
 
 $filtro = filter_input(INPUT_GET, 'producto', FILTER_VALIDATE_INT);
+
 if ($filtro) {
     $datos['comentarios'] = array_values(array_filter(
         $datos['comentarios'],
-        fn($registro) => ($registro['producto_id'] ?? null) === $filtro
+        fn($registro) => (int)($registro['producto_id'] ?? 0) === $filtro
     ));
 }
 
-require_once __DIR__ . '/../layouts/head.php';
-require_once __DIR__ . '/../layouts/header.php';
+require_once __DIR__ . '/../layouts/rutas.php';
+
+$css = '<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/panel-comentarios.css') . '">
+<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/header-footer.css') . '">';
+
+require_once __DIR__ . '/../layouts/admin-head.php';
+require_once __DIR__ . '/../layouts/admin-header.php';
 require_once __DIR__ . '/../partials/sidebar.php';
 ?>
 
@@ -44,18 +55,25 @@ require_once __DIR__ . '/../partials/sidebar.php';
             <p class="muted">Gestioná comentarios y su disponibilidad.</p>
         </div>
     </div>
-    <div id="admin-feedback" class="form-feedback" aria-live="polite"><?php if (isset($_GET['guardado'])): ?>Registro guardado correctamente.<?php endif; ?></div>
-    <div class="table-filters">
+    <?php require_once __DIR__ . '/../partials/mensajes.php'; ?>
+
+    <form method="get" class="table-filters">
+        <?php if ($filtro): ?>
+            <input type="hidden" name="producto" value="<?= (int)$filtro ?>">
+        <?php endif; ?>
+
         <div>
             <label for="filter-state">Estado</label>
-            <select id="filter-state" data-filter-state>
-                <option value="">Todos</option>
-                <option value="1">Activos / aprobados</option>
-                <option value="0">Inactivos / pendientes</option>
+            <select id="filter-state" name="estado">
+                <option value="" <?= $estadoFiltro === '' ? 'selected' : '' ?>>Todos</option>
+                <option value="1" <?= $estadoFiltro === '1' ? 'selected' : '' ?>>Aprobados</option>
+                <option value="0" <?= $estadoFiltro === '0' ? 'selected' : '' ?>>Pendientes</option>
             </select>
         </div>
-    </div>
-    <form method="get" class="table-filters"><label>Buscar <input name="q" value="<?= escaparDato($_GET['q'] ?? '') ?>" placeholder="Nombre, ID u otro dato"></label><button class="button primary">Buscar</button></form>
+        <label for="buscar-comentario">Buscar</label>
+        <input id="buscar-comentario" name="q" value="<?= escaparDato($_GET['q'] ?? '') ?>" placeholder="Comentario, email u otro dato">
+        <button class="button primary" type="submit">Filtrar</button>
+    </form>
     <div
         class="table-wrap"
         tabindex="0"
@@ -78,14 +96,22 @@ require_once __DIR__ . '/../partials/sidebar.php';
             <tbody>
                 <?php foreach ($datos['comentarios'] as $registro): ?>
                     <tr data-record data-state="<?= escapar($registro['estado']) ?>">
-                        <td class="comment-cell"><?= escapar($registro['comentario']) ?><small class="muted"><?= escapar($registro['email']) ?></small></td>
-                        <td class="nowrap"><span class="rating" aria-label="<?= escapar($registro['ranking']) ?> de 5"><?= str_repeat('★', $registro['ranking']) . str_repeat('☆', 5 - $registro['ranking']) ?></span></td>
+                        <td class="comment-cell"><?= escapar($registro['comentario']) ?>
+                            <small class="muted"><?= escapar($registro['email']) ?></small></td>
+                        <td class="nowrap">
+                            <span class="rating" aria-label="<?= escapar($registro['ranking']) ?> de 5"><?= str_repeat('★', $registro['ranking']) . str_repeat('☆', 5 - $registro['ranking']) ?></span></td>
                         <td class="nowrap"><?= escapar($registro['fecha']) ?></td>
                         <td><?= escapar($registro['producto']) ?></td>
-                        <td><span class="badge <?= $registro['estado'] ? 'state-active' : 'state-inactive' ?>" data-state-badge><?= $registro['estado'] ? 'Activo' : 'Inactivo' ?></span></td>
+                        <td>
+                            <span class="badge <?= $registro['estado'] ? 'state-active' : 'state-inactive' ?>" data-state-badge><?= $registro['estado'] ? 'Aprobado' : 'Pendiente' ?></span></td>
                         <td>
                             <div class="row-actions">
-                                <form method="post" action="<?= rutaCityFarmac('views/admin/estado.php') ?>" style="display:inline"><?= camposFormulario() ?><input type="hidden" name="entidad" value="comentarios"><input type="hidden" name="id" value="<?= escaparDato($registro['id']) ?>"><button class="text-button"><?= $registro['estado'] ? 'Inactivar' : 'Activar' ?></button></form>
+                                <form method="post" action="<?= rutaCityFarmac('views/admin/estado.php') ?>" style="display:inline">
+                                    <?= camposFormulario() ?>
+                                    <input type="hidden" name="entidad" value="comentarios">
+                                    <input type="hidden" name="id" value="<?= escaparDato($registro['id']) ?>">
+                                    <button class="text-button"><?= $registro['estado'] ? 'Desaprobar' : 'Aprobar' ?></button>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -97,8 +123,8 @@ require_once __DIR__ . '/../partials/sidebar.php';
         </table>
     </div>
 </main>
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/admin-footer.php'; ?>
+<script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>
 </body>
 
 </html>
-<script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>

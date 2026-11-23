@@ -24,6 +24,10 @@ $productos = array_values(array_filter($productos, function ($p) {
 }));
 $orden = (string)($_GET['orden'] ?? 'Destacados');
 usort($productos, function ($a, $b) use ($orden) {
+    //Corrección, faltaba ordenar los productos de la A a la Z
+    if ($orden === 'A-Z') return strcmp(normalizarBusqueda($a['nombre']), normalizarBusqueda($b['nombre']));
+    if ($orden === 'Z-A') return strcmp(normalizarBusqueda($b['nombre']), normalizarBusqueda($a['nombre']));
+
     if ($orden === 'Menor precio') return $a['precio'] <=> $b['precio'];
     if ($orden === 'Mayor precio') return $b['precio'] <=> $a['precio'];
     if ($orden === 'Mejor puntaje') return $b['puntaje'] <=> $a['puntaje'];
@@ -55,13 +59,26 @@ sort($marcas);
                     <?php endforeach; ?>
                 <?php endforeach; ?>
 
-                <form method="get"><input name="q" placeholder="Buscar productos" value="<?= escaparDato($_GET['q'] ?? '') ?>"><input type="hidden" name="categoria" value="<?= escaparDato($_GET['categoria'] ?? '') ?>"><label for="marca" class="cf-filtro-etiqueta">Marca</label>
+                <form method="get">
+                    <input name="q" placeholder="Buscar productos" value="<?= escaparDato($_GET['q'] ?? '') ?>">
+                    <input type="hidden" name="categoria" value="<?= escaparDato($_GET['categoria'] ?? '') ?>">
+                    <label for="marca" class="cf-filtro-etiqueta">Marca</label>
                     <select id="marca" name="marca" class="cf-select">
                         <option value="">Todas</option>
                         <?php foreach ($marcas as $m): ?>
                             <option <?= ($_GET['marca'] ?? '') === $m ? 'selected' : '' ?>><?= htmlspecialchars($m) ?></option>
                         <?php endforeach; ?>
-                    </select><label>Ordenar <select name="orden"><?php foreach (['Destacados', 'Menor precio', 'Mayor precio', 'Mejor puntaje'] as $o): ?><option <?= $orden === $o ? 'selected' : '' ?>><?= $o ?></option><?php endforeach; ?></select></label><button class="cf-boton">Buscar</button>
+                    </select>
+                    <label for="orden">Ordenar</label>
+                        <select id="orden" name="orden">
+                            <?php foreach (['Destacados', 'Menor precio', 'Mayor precio', 'Mejor puntaje', 'A-Z', 'Z-A'] as $o): ?>
+                            <option value="<?= escaparDato($o) ?>" <?= $orden === $o ? 'selected' : '' ?>>
+                                <?= escaparDato($o) ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    
+                    <button class="cf-boton">Buscar</button>
                 </form>
             </aside>
 
@@ -71,7 +88,10 @@ sort($marcas);
 
                 </div>
 
-                <?php if (!$productos): ?><p>No se encontraron productos.</p><?php endif; ?><div class="cf-grilla">
+                <?php if (!$productos): ?>
+                    <p>No hay productos para mostrar</p>
+                <?php endif; ?>
+                <div class="cf-grilla">
                     <?php foreach ($productos as $p): ?>
                         <article class="cf-tarjeta">
                             <div class="cf-tarjeta-imagen">

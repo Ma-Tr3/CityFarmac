@@ -1,6 +1,6 @@
 <?php require_once __DIR__ . '/rutas.php'; ?>
 
-<header class="sites-header">
+<header class="site-header">
     <div class="site-header-inner">
         <a class="site-brand" href="<?= rutaCityFarmac('views/admin/panel-inicio.php') ?>">
             <span class="site-brand-icon" aria-hidden="true">+</span>

@@ -53,6 +53,7 @@ require_once __DIR__ . '/views/layouts/header.php';
             </form>
     </div>
 </main>
-</body>
+
 <?php require_once __DIR__ . '/views/layouts/footer.php'; ?>
+</body>
 </html>

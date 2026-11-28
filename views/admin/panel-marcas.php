@@ -6,7 +6,8 @@ exigirPanel('marcas');
 
 
 require_once __DIR__ . '/../../data/formulario.php';
-$datos = require __DIR__ . '/../../data/admin.php';
+require_once __DIR__ . '/../../controladores/catalogo.php';
+$datos['marcas'] = listarCatalogo('marcas');
 
 function escapar(mixed $valor): string
 {

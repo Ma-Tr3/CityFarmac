@@ -2,26 +2,11 @@
 require_once __DIR__ . '/../../data/sesion.php';
 exigirPanel('categorias');
 
-require_once __DIR__ . '/../../data/formulario.php';
-procesarFormulario('categorias');
-$datosFormulario = require __DIR__ . '/../../data/admin.php';
-$idFormulario = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-$registroFormulario = null;
-foreach ($datosFormulario['categorias'] as $itemFormulario) {
-    if ($itemFormulario['id'] === $idFormulario) {
-        $registroFormulario = $itemFormulario;
-        break;
-    }
-}
-if ($registroFormulario === null) {
-    http_response_code(404);
-    echo 'Registro no encontrado. <a href="' . rutaCityFarmac('views/admin/panel-categorias.php') . '">Volver al listado</a>';
-    exit;
-}
-function escaparFormulario(mixed $valor): string
-{
-    return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
-}
+require_once __DIR__ . '/../../controladores/catalogo.php';
+require_once __DIR__ . '/../partials/opciones-catalogo.php';
+
+[$registroFormulario, $categoriasFormulario] =
+    prepararFormularioCatalogo('categorias', true);
 
 require_once __DIR__ . '/../layouts/rutas.php';
 $css = '<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/admin-formularios.css') . '">
@@ -39,39 +24,40 @@ require_once __DIR__ . '/../partials/sidebar.php';
         <span>/</span>
         <span>Modificar</span>
     </nav>
+
     <div class="page-heading">
         <h1>Modificar categoría</h1>
-        <p class="muted">
-            Completá los campos. Los cambios se guardan al confirmar el formulario.
-        </p>
+        <p class="muted">Completá los campos. Los cambios se guardan al confirmar el formulario.</p>
     </div>
-    <form class="surface admin-form admin-form--categorias" method="post" enctype="multipart/form-data">
+
+    <form class="surface admin-form admin-form--categorias" method="post">
         <?= camposFormulario() ?>
         <?php require_once __DIR__ . '/../partials/mensajes.php'; ?>
+
         <div class="form-grid">
             <div class="field-nombre">
                 <label for="nombre">Nombre</label>
-                <input
-                    id="nombre"
-                    name="nombre"
-                    required
-                    maxlength="120"
-                    value="<?= escaparFormulario($registroFormulario['nombre']) ?>" />
+                <input id="nombre" name="nombre" required maxlength="120"
+                    value="<?= escaparDato($registroFormulario['nombre'] ?? '') ?>">
             </div>
+
             <div class="span-all">
                 <label for="padre">Categoría padre (opcional)</label>
-                <select id="padre" name="padre"><?= opcionesFormulario('padre', 'categorias', $registroFormulario ?? []) ?></select>
-                <small class="muted">Seleccioná un padre para crear una subcategoría.</small>
+                <select id="padre" name="padre">
+                    <?= opcionesCatalogo($categoriasFormulario, 'padre', $registroFormulario) ?>
+                </select>
+                <small class="muted">Seleccioná un padre para convertirla en subcategoría.</small>
             </div>
         </div>
+
         <div class="form-actions">
-            <a class="button outline" href="<?= rutaCityFarmac('views/admin/panel-categorias.php') ?>"> Cancelar </a>
+            <a class="button outline" href="<?= rutaCityFarmac('views/admin/panel-categorias.php') ?>">Cancelar</a>
             <button class="button primary" type="submit">Guardar categoría</button>
         </div>
     </form>
 </main>
+
 <?php require_once __DIR__ . '/../layouts/admin-footer.php'; ?>
 <script src="<?= rutaCityFarmac('assets/js/formulario.js') ?>" defer></script>
 </body>
-
 </html>

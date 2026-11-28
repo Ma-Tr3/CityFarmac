@@ -1,38 +1,61 @@
 <?php
+
 require_once __DIR__ . '/../../data/comentario.php';
-
-
 require_once __DIR__ . '/../layouts/rutas.php';
+
 $css = '<link rel="stylesheet" href="' . rutaCityFarmac('assets/css/public.css') . '">
         <link rel="stylesheet" href="' . rutaCityFarmac('assets/css/header-footer.css') . '">';
-
 
 function estrellas(int $n): string
 {
     return str_repeat('★', $n) . str_repeat('☆', 5 - $n);
 }
 
-$datos = require __DIR__ . '/../../data/admin.php';
-$productos = productosPublicos($datos);
-$opiniones = [];
-foreach ($datos['comentarios'] as $c) if ($c['estado']) $opiniones[$c['producto_id']][] = ['autor' => 'Cliente', 'puntaje' => (int)$c['ranking'], 'texto' => $c['comentario']];
-$valoraciones = [5 => 'Excelente', 4 => 'Muy bueno', 3 => 'Bueno', 2 => 'Regular', 1 => 'Malo'];
+$valoraciones = [
+    5 => 'Excelente',
+    4 => 'Muy bueno',
+    3 => 'Bueno',
+    2 => 'Regular',
+    1 => 'Malo',
+];
 
-// Buscar el producto que pidió la URL (detalle.php?id=1)
-$id = (int) ($_GET['id'] ?? 0);
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT, [
+    'options' => ['min_range' => 1],
+]);
+
 $producto = null;
-foreach ($productos as $item) {
-    if ($item['id'] === $id) {
-        $producto = $item;
-        break;
+$opinionesProducto = [];
+$promedio = 0.0;
+$errorCatalogo = false;
+
+try {
+    $producto = $id ? productoPublicoPorId($id) : null;
+
+    if ($producto === null) {
+        http_response_code(404);
+    } else {
+        procesarComentarioProducto($id);
+
+        $opinionesProducto = opinionesPublicasPorProducto($id);
+
+        if ($opinionesProducto) {
+            $promedio = array_sum(array_column($opinionesProducto, 'puntaje'))
+                / count($opinionesProducto);
+        }
     }
+} catch (PDOException $error) {
+    error_log($error->getMessage());
+    http_response_code(503);
+    $errorCatalogo = true;
 }
 
-if ($producto === null) {
-    http_response_code(404);
-}
+$emailIngresado = $_POST['email'] ?? '';
+$emailIngresado = is_string($emailIngresado) ? $emailIngresado : '';
 
-$opinionesProducto = $opiniones[$id] ?? [];
+$comentarioIngresado = $_POST['comentario'] ?? '';
+$comentarioIngresado = is_string($comentarioIngresado) ? $comentarioIngresado : '';
+
+$valoracionIngresada = $_POST['valoracion'] ?? '5';
 
 require_once __DIR__ . '/../layouts/head.php';
 ?>
@@ -42,7 +65,12 @@ require_once __DIR__ . '/../layouts/head.php';
 
     <main class="cf-contenedor">
 
-        <?php if ($producto === null): ?>
+        <?php if ($errorCatalogo): ?>
+
+            <h1 class="cf-titulo-pagina">El catálogo no está disponible</h1>
+            <p>Intentá nuevamente en unos minutos.</p>
+
+        <?php elseif ($producto === null): ?>
 
             <h1 class="cf-titulo-pagina">Producto no encontrado</h1>
             <p>El producto que buscás no existe o fue retirado del catálogo.</p>
@@ -58,17 +86,19 @@ require_once __DIR__ . '/../layouts/head.php';
 
             <section class="cf-detalle">
                 <div class="cf-detalle-imagen">
-                    <img src="<?= escaparDato(imagenUrl($producto['imagen'])) ?>" alt="<?= escaparDato($producto['nombre']) ?>" style="max-width:100%;max-height:380px;object-fit:contain">
+                    <img src="<?= rutaCityFarmac($producto['imagen'] ?: 'assets/img/products/solar.svg') ?>"
+                    alt="<?= escaparDato($producto['nombre']) ?>"
+                    style="max-width:100%;max-height:380px;object-fit:contain">
                 </div>
 
                 <div class="cf-detalle-info">
                     <p class="cf-marca"><?= htmlspecialchars($producto['marca']) ?></p>
                     <h1><?= htmlspecialchars($producto['nombre']) ?></h1>
                     <p class="cf-detalle-puntaje">
-                        <?= estrellas($producto['puntaje']) ?>
-                        <?= number_format($producto['puntaje'], 1) ?> · <?= count($opinionesProducto) ?> opiniones
+                        <?= estrellas((int) round($promedio)) ?>
+                        <?= number_format($promedio, 1, ',', '.') ?> · <?= count($opinionesProducto) ?> opiniones    
                     </p>
-                    <p class="cf-detalle-precio">$ <?= number_format($producto['precio'], 0, ',', '.') ?></p>
+                    <p class="cf-detalle-precio">$ <?= number_format($producto['precio'], 2, ',', '.') ?></p>
                     <span class="cf-chip"><?= htmlspecialchars($producto['categoria']) ?></span>
                     <p class="cf-detalle-texto"><?= htmlspecialchars($producto['descripcion']) ?></p>
                     <p class="cf-detalle-datos">
@@ -89,7 +119,7 @@ require_once __DIR__ . '/../layouts/head.php';
                             <div class="cf-opinion">
                                 <div class="cf-opinion-cabecera">
                                     <span><?= htmlspecialchars($o['autor']) ?></span>
-                                    <span class="cf-opinion-estrellas"><?= estrellas($o['puntaje']) ?></span>
+                                    <span class="cf-opinion-estrellas"><?= estrellas((int) $o['puntaje']) ?></span>
                                 </div>
                                 <p><?= htmlspecialchars($o['texto']) ?></p>
                             </div>
@@ -97,27 +127,41 @@ require_once __DIR__ . '/../layouts/head.php';
                     <?php endif; ?>
                 </div>
 
-                <div class="cf-panel">
+                <div class="cf-panel" id="comentar">
                     <h2 class="cf-panel-titulo">Compartí tu experiencia</h2>
-                    <form method="post" action="<?= rutaCityFarmac('views/public/detalle.php') ?>?id=<?= $producto['id'] ?>"><?= camposFormulario() ?>
+
+                    <?php require __DIR__ . '/../partials/mensajes.php'; ?>
+
+                    <form method="post"
+                        action="<?= rutaCityFarmac('views/public/detalle.php') ?>?id=<?= (int) $producto['id'] ?>#comentar">
+                        <?= camposFormulario() ?>
+
                         <div class="cf-form-fila">
                             <div class="cf-campo">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required>
+                                <input type="email" id="email" name="email" required
+                                    maxlength="254" value="<?= escaparDato($emailIngresado) ?>">
                             </div>
+
                             <div class="cf-campo">
                                 <label for="valoracion">Valoración</label>
-                                <select id="valoracion" name="valoracion">
+                                <select id="valoracion" name="valoracion" required>
                                     <?php foreach ($valoraciones as $numero => $texto): ?>
-                                        <option value="<?= $numero ?>"><?= $numero ?> · <?= $texto ?></option>
+                                        <option value="<?= $numero ?>"
+                                            <?= (string) $numero === $valoracionIngresada ? 'selected' : '' ?>>
+                                            <?= $numero ?> · <?= escaparDato($texto) ?>
+                                        </option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
+
                         <div class="cf-campo">
                             <label for="comentario">Comentario</label>
-                            <textarea id="comentario" name="comentario" required></textarea>
+                            <textarea id="comentario" name="comentario" maxlength="4000"
+                                    required><?= escaparDato($comentarioIngresado) ?></textarea>
                         </div>
+
                         <div class="cf-form-acciones">
                             <button type="reset" class="cf-boton-claro">Cancelar</button>
                             <button type="submit" class="cf-boton">Enviar comentario</button>
